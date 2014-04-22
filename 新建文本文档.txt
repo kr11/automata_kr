@@ -1,0 +1,146 @@
+最小化结果：
+{
+"state": {
+"Q1": {
+"is_start": false,
+"is_final": false,
+"name": "D_F",
+"transition": {
+"0": "Q3",
+"1": "Q4"
+}
+},
+"Q0": {
+"is_start": true,
+"is_final": false,
+"name": "A_E",
+"transition": {
+"0": "Q2",
+"1": "Q1"
+}
+},
+"Q4": {
+"is_start": false,
+"is_final": false,
+"name": "G",
+"transition": {
+"0": "Q4",
+"1": "Q0"
+}
+},
+"Q3": {
+"is_start": false,
+"is_final": true,
+"name": "C",
+"transition": {
+"0": "Q0",
+"1": "Q3"
+}
+},
+"Q2": {
+"is_start": false,
+"is_final": false,
+"name": "B_H",
+"transition": {
+"0": "Q4",
+"1": "Q3"
+}
+}
+},
+"type": "DFA",
+"start": "Q0",
+"final": [
+"Q3"
+],
+"input": [
+"0",
+"1"
+]
+}
+
+转NFA结果：
+{
+"state": {
+"Q1": {
+"is_start": false,
+"is_final": false,
+"name": "q1_q4",
+"transition": {
+"0": "Q1",
+"+": "Q4",
+".": "Q2"
+}
+},
+"Q0": {
+"is_start": true,
+"is_final": false,
+"name": "q0_q1",
+"transition": {
+"0": "Q1",
+"+": "Q6",
+".": "Q5"
+}
+},
+"Q6": {
+"is_start": false,
+"is_final": false,
+"name": "q1",
+"transition": {
+"0": "Q1",
+"+": "Q4",
+".": "Q5"
+}
+},
+"Q5": {
+"is_start": false,
+"is_final": false,
+"name": "q2",
+"transition": {
+"0": "Q3",
+"+": "Q4",
+".": "Q4"
+}
+},
+"Q2": {
+"is_start": false,
+"is_final": true,
+"name": "q2_q3_q5",
+"transition": {
+"0": "Q3",
+"+": "Q4",
+".": "Q4"
+}
+},
+"Q4": {
+"is_start": false,
+"is_final": false,
+"name": "",
+"transition": {
+"0": "Q4",
+"+": "Q4",
+".": "Q4"
+}
+},
+"Q3": {
+"is_start": false,
+"is_final": true,
+"name": "q3_q5",
+"transition": {
+"0": "Q3",
+"+": "Q4",
+".": "Q4"
+}
+}
+},
+"type": "DFA",
+"start": "Q0",
+"final": [
+"Q2",
+"Q3"
+],
+"input": [
+"0",
+".",
+"+"
+]
+}
