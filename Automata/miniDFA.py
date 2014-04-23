@@ -18,8 +18,8 @@ pre_DFA = {
                 'is_start':True,
                 'is_final':False,
                 'transition':{
-                    '0':'B',
-                    '1':'F',
+                    '0':['B'],
+                    '1':['F'],
                 }
             },
             'B':{
@@ -27,8 +27,8 @@ pre_DFA = {
                 'is_start':False,
                 'is_final':False,
                 'transition':{
-                    '0':'G',
-                    '1':'C',
+                    '0':['G'],
+                    '1':['C'],
                 }
             },
             'C':{
@@ -36,8 +36,8 @@ pre_DFA = {
                 'is_start':False,
                 'is_final':True,
                 'transition':{
-                    '0':'A',
-                    '1':'C',
+                    '0':['A'],
+                    '1':['C'],
                 }
             },
             'D':{
@@ -45,8 +45,8 @@ pre_DFA = {
                 'is_start':False,
                 'is_final':False,
                 'transition':{
-                    '0':'C',
-                    '1':'G',
+                    '0':['C'],
+                    '1':['G'],
                 }
             },
             'E':{
@@ -54,8 +54,8 @@ pre_DFA = {
                 'is_start':False,
                 'is_final':False,
                 'transition':{
-                    '0':'H',
-                    '1':'F',
+                    '0':['H'],
+                    '1':['F'],
                 }
             },
             'F':{
@@ -63,8 +63,8 @@ pre_DFA = {
                 'is_start':False,
                 'is_final':False,
                 'transition':{
-                    '0':'C',
-                    '1':'G',
+                    '0':['C'],
+                    '1':['G'],
                 }
             },
             'G':{
@@ -72,8 +72,8 @@ pre_DFA = {
                 'is_start':False,
                 'is_final':False,
                 'transition':{
-                    '0':'G',
-                    '1':'E',
+                    '0':['G'],
+                    '1':['E'],
                 }
             },
             'H':{
@@ -81,8 +81,8 @@ pre_DFA = {
                 'is_start':False,
                 'is_final':False,
                 'transition':{
-                    '0':'G',
-                    '1':'C',
+                    '0':['G'],
+                    '1':['C'],
                 }
             },
         },
@@ -142,7 +142,7 @@ def file_table():
                     for input_str in pre_DFA['input']:
                         temp1 = pre_DFA['state'][state1]['transition'][input_str]
                         temp2 = pre_DFA['state'][state2]['transition'][input_str]
-                        if not ([temp1,temp2] in equal_pair or [temp2,temp1] in equal_pair) and temp1 != temp2:
+                        if not (temp1+temp2 in equal_pair or temp2+temp1 in equal_pair) and temp1 != temp2:
                             not_change = False
                             equal_pair.remove([state1, state2])
                             break
@@ -211,7 +211,7 @@ def rebuild_NDA():
             #if not [state1['transition'][input_str],state2['transition'][input_str]] in equal_pair:
                 #equal_pair.remove([state1, state2])
             for s in range(len(equal_pair)):
-                if pre_DFA['state'][equal_pair[i][0]]['transition'][input_str] in equal_pair[s]:
+                if pre_DFA['state'][equal_pair[i][0]]['transition'][input_str][0] in equal_pair[s]:
                     #如果出现在s处，则指向s
-                    mini_DFA['state'][state_name]['transition'][input_str] = 'Q' + str(s)
+                    mini_DFA['state'][state_name]['transition'][input_str] = ['Q' + str(s)]
                     break
