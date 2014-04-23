@@ -15,7 +15,7 @@ NFA = {
                 'is_start':True,
                 'is_final':False,
                 'transition':{
-                    'null':['q1'],
+                    u'ε':['q1'],
                     '+':['q1'],
                 }
             },
@@ -41,7 +41,7 @@ NFA = {
                 'is_start':False,
                 'is_final':False,
                 'transition':{
-                    'null':['q5'],
+                    u'ε':['q5'],
                     '0':['q3'],
                 }
             },
@@ -61,7 +61,7 @@ NFA = {
                 }
             },
         },
-        'input':['0','.','+','null'],
+        'input':['0','.','+',u'ε'],
         'start':'q0',
         'final':['q5'],
     }
@@ -81,9 +81,9 @@ def get_null_set(start_state):
         not_change = True
         for state in state_array:
             #如果添加之后长度变化则有新的进入
-            if state != '' and 'null' in NFA['state'][state]['transition']:
+            if state != '' and u'ε' in NFA['state'][state]['transition']:
                 pre_len = len(state_array)
-                null_state = NFA['state'][state]['transition']['null'] #.split('_')
+                null_state = NFA['state'][state]['transition'][u'ε'] #.split('_')
                 state_array = list(set(state_array) | set(null_state))
                 now_len = len(state_array)
                 if pre_len != now_len:
@@ -118,8 +118,8 @@ def init_NFA2DFA():
     }
     DFA['input'] = NFA['input']
     #去掉null
-    if 'null' in DFA['input']:
-        DFA['input'].remove('null')
+    if u'ε' in DFA['input']:
+        DFA['input'].remove(u'ε')
     #处理初始状态，开始retran递归
     #初始状态格式为q0，闭包的格式为q1_12,直接q0+闭包即可
     #null_state = NFA['state']['start']['transition']['null'].split('_')
