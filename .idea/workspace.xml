@@ -2,11 +2,14 @@
 <project version="4">
   <component name="ChangeListManager">
     <list default="true" id="46fce0e4-9e71-4ebd-b58a-599a230e5d31" name="Default" comment="">
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Automata.iml" afterPath="$PROJECT_DIR$/.idea/Automata.iml" />
+      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Automata/global_variable.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Automata/NFA2DFA.py" afterPath="$PROJECT_DIR$/Automata/NFA2DFA.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/dataSources.xml" afterPath="$PROJECT_DIR$/.idea/dataSources.xml" />
+<<<<<<< HEAD
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Automata/miniDFA.py" afterPath="$PROJECT_DIR$/Automata/miniDFA.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
+=======
+>>>>>>> 744d83408d34e57e9abcad1211991cb017d1a3cc
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="automata.iws" />
@@ -33,7 +36,11 @@
       <file leaf-file-name="NFA2DFA.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Automata/NFA2DFA.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state line="17" column="23" selection-start="446" selection-end="446" vertical-scroll-proportion="0.3325359" vertical-offset="127" max-vertical-offset="4275">
+=======
+            <state line="9" column="39" selection-start="250" selection-end="250" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285">
+>>>>>>> 744d83408d34e57e9abcad1211991cb017d1a3cc
               <folding />
             </state>
           </provider>
@@ -42,25 +49,27 @@
       <file leaf-file-name="autoreload.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://C:/Python27/Lib/site-packages/django/utils/autoreload.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
             <state line="62" column="13" selection-start="2654" selection-end="2654" vertical-scroll-proportion="0.0" vertical-offset="1254" max-vertical-offset="2888">
+=======
+            <state line="14" column="47" selection-start="477" selection-end="477" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="380">
+>>>>>>> 744d83408d34e57e9abcad1211991cb017d1a3cc
               <folding />
             </state>
           </provider>
         </entry>
       </file>
+<<<<<<< HEAD
       <file leaf-file-name="SocketServer.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://C:/Python27/Lib/SocketServer.py">
           <provider selected="true" editor-type-id="text-editor">
             <state line="154" column="0" selection-start="5999" selection-end="5999" vertical-scroll-proportion="0.0" vertical-offset="2739" max-vertical-offset="13927">
-              <folding />
-            </state>
-          </provider>
-        </entry>
-      </file>
+=======
       <file leaf-file-name="settings.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Automata/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="75" column="13" selection-start="1850" selection-end="1850" vertical-scroll-proportion="0.0" vertical-offset="1305" max-vertical-offset="1672">
+            <state line="75" column="13" selection-start="1850" selection-end="1850" vertical-scroll-proportion="0.0" vertical-offset="1114" max-vertical-offset="1672">
+>>>>>>> 744d83408d34e57e9abcad1211991cb017d1a3cc
               <folding />
             </state>
           </provider>
@@ -69,10 +78,40 @@
       <file leaf-file-name="miniDFA.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Automata/miniDFA.py">
           <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
+            <state line="75" column="13" selection-start="1850" selection-end="1850" vertical-scroll-proportion="0.0" vertical-offset="1305" max-vertical-offset="1672">
+=======
+            <state line="103" column="35" selection-start="2600" selection-end="2632" vertical-scroll-proportion="0.0" vertical-offset="1710" max-vertical-offset="4161">
+>>>>>>> 744d83408d34e57e9abcad1211991cb017d1a3cc
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+<<<<<<< HEAD
+      <file leaf-file-name="miniDFA.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Automata/miniDFA.py">
+          <provider selected="true" editor-type-id="text-editor">
             <state line="192" column="17" selection-start="5502" selection-end="5502" vertical-scroll-proportion="-5.32" vertical-offset="3515" max-vertical-offset="4218">
               <folding>
                 <element signature="e#76#112#0" expanded="true" />
               </folding>
+=======
+      <file leaf-file-name="global_variable.py" pinned="false" current="false" current-in-tab="false">
+        <entry file="file://$PROJECT_DIR$/Automata/global_variable.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="9" column="8" selection-start="250" selection-end="250" vertical-scroll-proportion="0.0" vertical-offset="171" max-vertical-offset="285">
+              <folding />
+            </state>
+          </provider>
+        </entry>
+      </file>
+      <file leaf-file-name="NFA2DFA.py" pinned="false" current="true" current-in-tab="true">
+        <entry file="file://$PROJECT_DIR$/Automata/NFA2DFA.py">
+          <provider selected="true" editor-type-id="text-editor">
+            <state line="87" column="39" selection-start="2420" selection-end="2420" vertical-scroll-proportion="0.7955665" vertical-offset="1254" max-vertical-offset="4218">
+              <folding />
+>>>>>>> 744d83408d34e57e9abcad1211991cb017d1a3cc
             </state>
           </provider>
         </entry>
@@ -116,10 +155,16 @@
     <option name="changedFiles">
       <list>
         <option value="$PROJECT_DIR$/Automata/settings.py" />
+<<<<<<< HEAD
         <option value="$PROJECT_DIR$/Automata/NFA2DFA.py" />
         <option value="$PROJECT_DIR$/Automata/urls.py" />
         <option value="$PROJECT_DIR$/Automata/miniDFA.py" />
         <option value="$PROJECT_DIR$/Automata/FAjudge.py" />
+=======
+        <option value="$PROJECT_DIR$/Automata/miniDFA.py" />
+        <option value="$PROJECT_DIR$/Automata/global_variable.py" />
+        <option value="$PROJECT_DIR$/Automata/NFA2DFA.py" />
+>>>>>>> 744d83408d34e57e9abcad1211991cb017d1a3cc
       </list>
     </option>
   </component>
@@ -475,20 +520,28 @@
       <window_info id="TODO" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="6" side_tool="false" content_ui="tabs" />
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+<<<<<<< HEAD
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2779456" sideWeight="0.60102737" order="0" side_tool="false" content_ui="combo" />
       <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.52307695" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32649574" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.1965812" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+=======
+      <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.18202417" sideWeight="0.60102737" order="0" side_tool="false" content_ui="combo" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.3989726" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
+      <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32649574" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.25982907" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+>>>>>>> 744d83408d34e57e9abcad1211991cb017d1a3cc
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36734694" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -544,6 +597,7 @@
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/Automata/NFA2DFA.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="10" column="21" selection-start="269" selection-end="269" vertical-scroll-proportion="0.0" vertical-offset="190" max-vertical-offset="4294">
@@ -567,6 +621,8 @@
         </state>
       </provider>
     </entry>
+=======
+>>>>>>> 744d83408d34e57e9abcad1211991cb017d1a3cc
     <entry file="file://$PROJECT_DIR$/Automata/NFA2DFA.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="82" column="22" selection-start="2064" selection-end="2064" vertical-scroll-proportion="0.0" vertical-offset="1558" max-vertical-offset="4199">
@@ -584,9 +640,7 @@
     <entry file="file://$PROJECT_DIR$/Automata/miniDFA.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="27" selection-start="372" selection-end="372" vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="4180">
-          <folding>
-            <element signature="e#76#112#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -607,9 +661,7 @@
     <entry file="file://$PROJECT_DIR$/Automata/miniDFA.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="27" selection-start="372" selection-end="372" vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="4180">
-          <folding>
-            <element signature="e#76#112#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -630,9 +682,7 @@
     <entry file="file://$PROJECT_DIR$/Automata/miniDFA.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="15" column="27" selection-start="372" selection-end="372" vertical-scroll-proportion="0.0" vertical-offset="285" max-vertical-offset="4180">
-          <folding>
-            <element signature="e#76#112#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -653,9 +703,7 @@
     <entry file="file://$PROJECT_DIR$/Automata/miniDFA.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="85" column="14" selection-start="2212" selection-end="2212" vertical-scroll-proportion="0.0" vertical-offset="1140" max-vertical-offset="4180">
-          <folding>
-            <element signature="e#76#112#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -676,9 +724,7 @@
     <entry file="file://$PROJECT_DIR$/Automata/miniDFA.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="129" column="26" selection-start="3197" selection-end="3197" vertical-scroll-proportion="0.0" vertical-offset="2451" max-vertical-offset="4142">
-          <folding>
-            <element signature="e#76#112#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -699,9 +745,7 @@
     <entry file="file://$PROJECT_DIR$/Automata/miniDFA.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="129" column="26" selection-start="3197" selection-end="3197" vertical-scroll-proportion="0.0" vertical-offset="2451" max-vertical-offset="4142">
-          <folding>
-            <element signature="e#76#112#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -722,9 +766,7 @@
     <entry file="file://$PROJECT_DIR$/Automata/miniDFA.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="118" column="36" selection-start="2891" selection-end="2896" vertical-scroll-proportion="0.0" vertical-offset="2242" max-vertical-offset="4142">
-          <folding>
-            <element signature="e#76#112#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -745,9 +787,7 @@
     <entry file="file://$PROJECT_DIR$/Automata/miniDFA.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="118" column="36" selection-start="2891" selection-end="2896" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="4142">
-          <folding>
-            <element signature="e#76#112#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -761,9 +801,7 @@
     <entry file="file://$PROJECT_DIR$/Automata/miniDFA.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="97" column="5" selection-start="2431" selection-end="2431" vertical-scroll-proportion="0.0" vertical-offset="1368" max-vertical-offset="4180">
-          <folding>
-            <element signature="e#76#112#0" expanded="true" />
-          </folding>
+          <folding />
         </state>
       </provider>
     </entry>
@@ -783,6 +821,7 @@
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://$PROJECT_DIR$/Automata/miniDFA.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="192" column="17" selection-start="5502" selection-end="5502" vertical-scroll-proportion="-5.32" vertical-offset="3515" max-vertical-offset="4218">
@@ -795,27 +834,69 @@
     <entry file="file://$PROJECT_DIR$/Automata/FAjudge.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="1" column="0" selection-start="22" selection-end="22" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="152">
+=======
+    <entry file="file://$PROJECT_DIR$/Automata/global_variable.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="8" selection-start="250" selection-end="250" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285">
           <folding />
         </state>
       </provider>
     </entry>
+    <entry file="file://$PROJECT_DIR$/Automata/urls.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="14" column="47" selection-start="477" selection-end="477" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="380">
+>>>>>>> 744d83408d34e57e9abcad1211991cb017d1a3cc
+          <folding />
+        </state>
+      </provider>
+    </entry>
+<<<<<<< HEAD
     <entry file="file://C:/Python27/Lib/SocketServer.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="154" column="0" selection-start="5999" selection-end="5999" vertical-scroll-proportion="0.0" vertical-offset="2739" max-vertical-offset="13927">
+=======
+    <entry file="file://D:/新建文件夹 (2)/Automata/Automata/NFA2DFA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="40" column="0" selection-start="1179" selection-end="1179" vertical-scroll-proportion="0.4718543" vertical-offset="456" max-vertical-offset="3230">
+>>>>>>> 744d83408d34e57e9abcad1211991cb017d1a3cc
           <folding />
         </state>
       </provider>
     </entry>
+<<<<<<< HEAD
     <entry file="file://C:/Python27/Lib/site-packages/django/utils/autoreload.py">
       <provider selected="true" editor-type-id="text-editor">
         <state line="62" column="13" selection-start="2654" selection-end="2654" vertical-scroll-proportion="0.0" vertical-offset="1254" max-vertical-offset="2888">
+=======
+    <entry file="file://$PROJECT_DIR$/manage.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="9" column="39" selection-start="250" selection-end="250" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="285">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Automata/settings.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="75" column="13" selection-start="1850" selection-end="1850" vertical-scroll-proportion="0.0" vertical-offset="1254" max-vertical-offset="1672">
+>>>>>>> 744d83408d34e57e9abcad1211991cb017d1a3cc
           <folding />
         </state>
       </provider>
     </entry>
     <entry file="file://$PROJECT_DIR$/Automata/NFA2DFA.py">
       <provider selected="true" editor-type-id="text-editor">
+<<<<<<< HEAD
         <state line="17" column="23" selection-start="446" selection-end="446" vertical-scroll-proportion="0.3325359" vertical-offset="127" max-vertical-offset="4275">
+=======
+        <state line="103" column="35" selection-start="2600" selection-end="2632" vertical-scroll-proportion="0.0" vertical-offset="1710" max-vertical-offset="4161">
+          <folding />
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Automata/NFA2DFA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="87" column="39" selection-start="2420" selection-end="2420" vertical-scroll-proportion="0.7955665" vertical-offset="1254" max-vertical-offset="4218">
+>>>>>>> 744d83408d34e57e9abcad1211991cb017d1a3cc
           <folding />
         </state>
       </provider>
