@@ -26,7 +26,7 @@ PDA = {
                     #下一层Z0，1，0为输入栈符号
                     u'ε':{
 
-                        'Z0':[['q1',['0','Z0']],],
+                        'Z0':[['q1',['Z0']],],
                         '0':[['q1',['0']],],
                         '1':[['q1',['1']],],
                     },
@@ -80,8 +80,8 @@ def judgePDA(request):
     #FA = simplejson.loads(request.raw_post_data)
     #judgeString = simplejson.loads(request.raw_post_data)
 
-    judgeString = '01111001011101' #待判断的语句
-    #judgeString = '' #待判断的语句
+    judgeString = '010110100001011010' #待判断的语句
+    #judgeString = '0101111010' #待判断的语句
     index = 0        #当前执行到的语句位置
 
     #如果是空语句
@@ -106,25 +106,38 @@ def per_judgePDA(PDA,now_state,judgeString,index):
         if stack_top in now_transition[u'ε']:
             for state in now_transition[u'ε'][stack_top]:
                 if (state[0] != now_state or state[1] != [stack_top]):
-                    PDA['stack'].pop()
-                    state[1].reverse()
-                    PDA['stack'] += state[1]
-                    state[1].reverse()
-                    return per_judgePDA(PDA,state[0],judgeString,index)
-
+                    #替换
+                    temp = PDA['stack'].pop()
+                    if state[1] != [u'ε']:
+                        state[1].reverse()
+                        PDA['stack'] += state[1]
+                        state[1].reverse()
+                    if per_judgePDA(PDA,state[0],judgeString,index):
+                        return True
+                    #还原
+                    if state[1] != [u'ε']:
+                        for i in range(0,len(state[1])):
+                            PDA['stack'].pop()
+                    PDA['stack'] += [temp]
     if index == len(judgeString):
         return False
     str = judgeString[index]
     #转移
     if str in now_transition:
-        if stack_top in now_transition[u'ε']:
-            for state in now_transition[u'ε'][stack_top]:
+        if stack_top in now_transition[str]:
+            for state in now_transition[str][stack_top]:
                 if (state[0] != now_state or state[1] != [stack_top]):
-                    PDA['stack'].pop()
-                    state[1].reverse()
-                    PDA['stack'] += state[1]
-                    state[1].reverse()
-                    return per_judgePDA(PDA,state[0],judgeString,index)
-
-
+                    #替换
+                    temp = PDA['stack'].pop()
+                    if state[1] != [u'ε']:
+                        state[1].reverse()
+                        PDA['stack'] += state[1]
+                        state[1].reverse()
+                    if per_judgePDA(PDA,state[0],judgeString,index+1):
+                        return True
+                    #还原
+                    if state[1] != [u'ε']:
+                        for i in range(0,len(state[1])):
+                            PDA['stack'].pop()
+                    PDA['stack'] += [temp]
     return False

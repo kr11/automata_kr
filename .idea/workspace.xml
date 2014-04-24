@@ -1,13 +1,8 @@
 <?xml version="1.0" encoding="UTF-8"?>
 <project version="4">
   <component name="ChangeListManager">
-    <list default="true" id="46fce0e4-9e71-4ebd-b58a-599a230e5d31" name="Default" comment="">
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Automata/judgeFA.py" />
-      <change type="NEW" beforePath="" afterPath="$PROJECT_DIR$/Automata/judgePDA.py" />
-      <change type="DELETED" beforePath="D:\automata_kr\Automata\FAjudge.py" afterPath="" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/Automata.iml" afterPath="$PROJECT_DIR$/.idea/Automata.iml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/misc.xml" afterPath="$PROJECT_DIR$/.idea/misc.xml" />
-      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Automata/urls.py" afterPath="$PROJECT_DIR$/Automata/urls.py" />
+    <list default="true" id="46fce0e4-9e71-4ebd-b58a-599a230e5d31" name="Default" comment="PDA识别未完成">
+      <change type="MODIFICATION" beforePath="$PROJECT_DIR$/Automata/judgePDA.py" afterPath="$PROJECT_DIR$/Automata/judgePDA.py" />
       <change type="MODIFICATION" beforePath="$PROJECT_DIR$/.idea/workspace.xml" afterPath="$PROJECT_DIR$/.idea/workspace.xml" />
     </list>
     <ignored path="automata.iws" />
@@ -34,7 +29,7 @@
       <file leaf-file-name="NFA2DFA.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Automata/NFA2DFA.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="152" column="28" selection-start="4146" selection-end="4171" vertical-scroll-proportion="0.0" vertical-offset="2888" max-vertical-offset="4275">
+            <state line="152" column="28" selection-start="4146" selection-end="4171" vertical-scroll-proportion="0.0" vertical-offset="2888" max-vertical-offset="4332">
               <folding />
             </state>
           </provider>
@@ -43,7 +38,7 @@
       <file leaf-file-name="settings.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Automata/settings.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="75" column="13" selection-start="1850" selection-end="1850" vertical-scroll-proportion="0.0" vertical-offset="878" max-vertical-offset="1672">
+            <state line="75" column="13" selection-start="1850" selection-end="1850" vertical-scroll-proportion="0.0" vertical-offset="1425" max-vertical-offset="1672">
               <folding />
             </state>
           </provider>
@@ -52,16 +47,16 @@
       <file leaf-file-name="miniDFA.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Automata/miniDFA.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="136" column="25" selection-start="3513" selection-end="3513" vertical-scroll-proportion="0.0" vertical-offset="2223" max-vertical-offset="4161">
+            <state line="136" column="25" selection-start="3513" selection-end="3513" vertical-scroll-proportion="0.0" vertical-offset="2584" max-vertical-offset="4218">
               <folding />
             </state>
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="judgeFA.py" pinned="false" current="true" current-in-tab="true">
+      <file leaf-file-name="judgeFA.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Automata/judgeFA.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="184" column="0" selection-start="4685" selection-end="4685" vertical-scroll-proportion="0.19292036" vertical-offset="3387" max-vertical-offset="3952">
+            <state line="164" column="33" selection-start="4183" selection-end="4183" vertical-scroll-proportion="0.0" vertical-offset="2988" max-vertical-offset="3952">
               <folding>
                 <element signature="e#76#112#0" expanded="true" />
               </folding>
@@ -69,10 +64,10 @@
           </provider>
         </entry>
       </file>
-      <file leaf-file-name="judgePDA.py" pinned="false" current="false" current-in-tab="false">
+      <file leaf-file-name="judgePDA.py" pinned="false" current="true" current-in-tab="true">
         <entry file="file://$PROJECT_DIR$/Automata/judgePDA.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="110" column="44" selection-start="3303" selection-end="3303" vertical-scroll-proportion="0.0" vertical-offset="1905" max-vertical-offset="2527">
+            <state line="141" column="35" selection-start="4614" selection-end="4614" vertical-scroll-proportion="0.6041667" vertical-offset="2390" max-vertical-offset="2774">
               <folding />
             </state>
           </provider>
@@ -81,7 +76,7 @@
       <file leaf-file-name="urls.py" pinned="false" current="false" current-in-tab="false">
         <entry file="file://$PROJECT_DIR$/Automata/urls.py">
           <provider selected="true" editor-type-id="text-editor">
-            <state line="17" column="21" selection-start="551" selection-end="551" vertical-scroll-proportion="0.0" vertical-offset="0" max-vertical-offset="418">
+            <state line="17" column="21" selection-start="551" selection-end="551" vertical-scroll-proportion="0.0" vertical-offset="323" max-vertical-offset="532">
               <folding />
             </state>
           </provider>
@@ -110,8 +105,8 @@
         <option value="$PROJECT_DIR$/Automata/miniDFA.py" />
         <option value="$PROJECT_DIR$/Automata/NFA2DFA.py" />
         <option value="$PROJECT_DIR$/Automata/FAjudge.py" />
-        <option value="$PROJECT_DIR$/Automata/judgeFA.py" />
         <option value="$PROJECT_DIR$/Automata/urls.py" />
+        <option value="$PROJECT_DIR$/Automata/judgeFA.py" />
         <option value="$PROJECT_DIR$/Automata/judgePDA.py" />
       </list>
     </option>
@@ -146,7 +141,6 @@
       <sortByType />
     </navigator>
     <panes>
-      <pane id="Scope" />
       <pane id="ProjectPane">
         <subPane>
           <PATH>
@@ -181,6 +175,7 @@
           </PATH>
         </subPane>
       </pane>
+      <pane id="Scope" />
     </panes>
   </component>
   <component name="PropertiesComponent">
@@ -284,27 +279,7 @@
       <option name="PARAMETERS" value="" />
       <method />
     </configuration>
-    <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
-      <option name="INTERPRETER_OPTIONS" value="" />
-      <option name="PARENT_ENVS" value="true" />
-      <envs>
-        <env name="PYTHONUNBUFFERED" value="1" />
-      </envs>
-      <option name="SDK_HOME" value="" />
-      <option name="WORKING_DIRECTORY" value="" />
-      <option name="IS_MODULE_SDK" value="false" />
-      <option name="ADD_CONTENT_ROOTS" value="true" />
-      <option name="ADD_SOURCE_ROOTS" value="true" />
-      <module name="automata" />
-      <option name="launchJavascriptDebuger" value="false" />
-      <option name="port" value="8000" />
-      <option name="host" value="" />
-      <option name="additionalOptions" value="" />
-      <option name="browserUrl" value="" />
-      <option name="runTestServer" value="false" />
-      <option name="runNoReload" value="false" />
-      <option name="useCustomRunCommand" value="false" />
-      <option name="customRunCommand" value="" />
+    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Unittests">
@@ -330,7 +305,27 @@
       <option name="USE_PARAM" value="false" />
       <method />
     </configuration>
-    <configuration default="true" type="JavascriptDebugType" factoryName="JavaScript Debug" singleton="true">
+    <configuration default="true" type="Python.DjangoServer" factoryName="Django server">
+      <option name="INTERPRETER_OPTIONS" value="" />
+      <option name="PARENT_ENVS" value="true" />
+      <envs>
+        <env name="PYTHONUNBUFFERED" value="1" />
+      </envs>
+      <option name="SDK_HOME" value="" />
+      <option name="WORKING_DIRECTORY" value="" />
+      <option name="IS_MODULE_SDK" value="false" />
+      <option name="ADD_CONTENT_ROOTS" value="true" />
+      <option name="ADD_SOURCE_ROOTS" value="true" />
+      <module name="automata" />
+      <option name="launchJavascriptDebuger" value="false" />
+      <option name="port" value="8000" />
+      <option name="host" value="" />
+      <option name="additionalOptions" value="" />
+      <option name="browserUrl" value="" />
+      <option name="runTestServer" value="false" />
+      <option name="runNoReload" value="false" />
+      <option name="useCustomRunCommand" value="false" />
+      <option name="customRunCommand" value="" />
       <method />
     </configuration>
     <configuration default="true" type="tests" factoryName="Doctests">
@@ -455,6 +450,11 @@
       <created>1389517376518</created>
       <updated>1389517376518</updated>
     </task>
+    <task id="LOCAL-00001" summary="PDA识别未完成">
+      <created>1398337682840</created>
+      <updated>1398337682840</updated>
+    </task>
+    <option name="localTasksCounter" value="2" />
     <servers />
   </component>
   <component name="ToolWindowManager">
@@ -467,19 +467,19 @@
       <window_info id="Database" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="true" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.14444445" sideWeight="0.60102737" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4588816" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
+      <window_info id="Debug" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.45777026" sideWeight="0.5" order="3" side_tool="false" content_ui="tabs" />
       <window_info id="Favorites" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="2" side_tool="true" content_ui="tabs" />
       <window_info id="Event Log" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.32649574" sideWeight="0.5" order="7" side_tool="true" content_ui="tabs" />
-      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.30592105" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.30574325" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
       <window_info id="Version Control" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
       <window_info id="Message" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Find" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.33" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
+      <window_info id="Ant Build" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Messages" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.36734694" sideWeight="0.5" order="7" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
     </layout>
     <layout-to-restore>
       <window_info id="Cvs" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="4" side_tool="false" content_ui="tabs" />
@@ -498,9 +498,9 @@
       <window_info id="Structure" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="1" side_tool="false" content_ui="tabs" />
       <window_info id="Commander" active="false" anchor="right" auto_hide="false" internal_type="SLIDING" type="SLIDING" visible="false" weight="0.4" sideWeight="0.5" order="0" side_tool="false" content_ui="tabs" />
       <window_info id="Project" active="false" anchor="left" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.2709251" sideWeight="0.60102737" order="0" side_tool="false" content_ui="combo" />
-      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
-      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
       <window_info id="Run" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="true" weight="0.32730263" sideWeight="0.5" order="2" side_tool="false" content_ui="tabs" />
+      <window_info id="Hierarchy" active="false" anchor="right" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.25" sideWeight="0.5" order="2" side_tool="false" content_ui="combo" />
+      <window_info id="Inspection" active="false" anchor="bottom" auto_hide="false" internal_type="DOCKED" type="DOCKED" visible="false" weight="0.4" sideWeight="0.5" order="5" side_tool="false" content_ui="tabs" />
     </layout-to-restore>
   </component>
   <component name="Vcs.Log.UiProperties">
@@ -515,6 +515,8 @@
     <option name="myTodoPanelSettings">
       <TodoPanelSettings />
     </option>
+    <MESSAGE value="PDA识别未完成" />
+    <option name="LAST_COMMIT_MESSAGE" value="PDA识别未完成" />
   </component>
   <component name="XDebuggerManager">
     <breakpoint-manager>
@@ -542,11 +544,11 @@
         </line-breakpoint>
         <line-breakpoint enabled="true" type="python-line">
           <url>file://$PROJECT_DIR$/Automata/judgePDA.py</url>
-          <line>102</line>
-          <option name="timeStamp" value="27" />
+          <line>95</line>
+          <option name="timeStamp" value="33" />
         </line-breakpoint>
       </breakpoints>
-      <option name="time" value="29" />
+      <option name="time" value="34" />
     </breakpoint-manager>
   </component>
   <component name="editorHistoryManager">
@@ -899,19 +901,19 @@
         </state>
       </provider>
     </entry>
-    <entry file="file://$PROJECT_DIR$/Automata/judgePDA.py">
-      <provider selected="true" editor-type-id="text-editor">
-        <state line="110" column="44" selection-start="3303" selection-end="3303" vertical-scroll-proportion="0.0" vertical-offset="1905" max-vertical-offset="2527">
-          <folding />
-        </state>
-      </provider>
-    </entry>
     <entry file="file://$PROJECT_DIR$/Automata/judgeFA.py">
       <provider selected="true" editor-type-id="text-editor">
-        <state line="184" column="0" selection-start="4685" selection-end="4685" vertical-scroll-proportion="0.19292036" vertical-offset="3387" max-vertical-offset="3952">
+        <state line="164" column="33" selection-start="4183" selection-end="4183" vertical-scroll-proportion="0.0" vertical-offset="2988" max-vertical-offset="3952">
           <folding>
             <element signature="e#76#112#0" expanded="true" />
           </folding>
+        </state>
+      </provider>
+    </entry>
+    <entry file="file://$PROJECT_DIR$/Automata/judgePDA.py">
+      <provider selected="true" editor-type-id="text-editor">
+        <state line="141" column="35" selection-start="4614" selection-end="4614" vertical-scroll-proportion="0.6041667" vertical-offset="2390" max-vertical-offset="2774">
+          <folding />
         </state>
       </provider>
     </entry>
