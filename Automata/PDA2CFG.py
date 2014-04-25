@@ -1,4 +1,3 @@
-
 #encoding: utf-8
 __author__ = 'manman'
 #from django.template import Context
@@ -71,24 +70,66 @@ PDA = {
             },
         },
     }
+#上下无关文法
+CFG = {
+        'type':'CFG',
+        'Variable':['S'],
+        'Terminal':['i','e'],
+        'Start':'S',
+        'pre_Production':{
+            'S':'iSS|e'
+        },
+        'final_Production':{
+            'S':[['i','S','S'],['e']],
+        }
+    }
+#将拆开的final_Production连接成pre_Production
+def connnect_preP():
+    return 0
+
+#将连在一起的pre_Production拆分成final_Production
+def parse_finalP():
+    return 0
 
 
+#初始化add_new_state，将所有[qXp]编号，放入
+def number_addNewState():
+    num = 0
+    for i in DFA['stack_input']:
+        for s in DFA['state']:
+            for r in DFA['state']:
+                add_new_state[i+s+r] = num
+                num += 1
+    #return 0
+
+add_new_state = {}#已经重命名过的新状态，对应他的新名字
 #NFA转DFA函数
-def judgePDA(request):
+def PDA2CFG(request):
     global PDA
     #从前端得到FA和judgeString的值
     #PDA = simplejson.loads(request.raw_post_data)
-    #judgeString = simplejson.loads(request.raw_post_data)
 
-    judgeString = '010110100001011010' #待判断的语句
-    #judgeString = '0101111010' #待判断的语句
-    index = 0        #当前执行到的语句位置
+    new_state_count = 0   #下一次添加状态‘Q’+ new_state_count
+    #初始化CFG
+    CFG = {
+        'type':'CFG',
+        'Variable':['S'],
+        'Terminal':[],
+        'Start':'S',
+        'pre_Production':{
+        },
+        'final_Production':{
+        }
+    }
 
-    #如果是空语句
-    if judgeString == '':
-        return HttpResponse(PDA['state'][PDA['start_state']]['is_final'])
-    #return HttpResponse(False)
-    return HttpResponse(per_judgePDA(PDA,PDA['start_state'],judgeString,index))
+    #初始化add_new_state，将所有[qXp]编号，放入
+    number_addNewState()
+    #加入初始状态
+
+    #不断加入所有的转移状态
+
+    json=simplejson.dumps(CFG)
+    return HttpResponse(json)
 
 
 def per_judgePDA(PDA,now_state,judgeString,index):

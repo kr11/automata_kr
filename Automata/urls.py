@@ -5,6 +5,11 @@ from Automata.NFA2DFA import *
 from Automata.miniDFA import *
 from Automata.judgeFA import *
 from Automata.judgePDA import *
+from Automata.judgeTuring import *
+from Automata.CFG2PDA import *
+from Automata.PDA2CFG import *
+from Automata.convertNP_LP import *
+
 #admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -14,8 +19,14 @@ urlpatterns = patterns('',
     ('^NFA2DFA/$', NFA2DFA),
     ('^judgeFA/$', judgeFA),
     ('^miniDFA/$', miniFDA),
-    ('^miniDFA/$', miniFDA),
-    (r'^$',judgePDA),
+    ('^judgeDFA/$', judgePDA),
+    ('^judgeTuring/$', judgeTuring),
+    ('^CFG2PDA/$', CFG2PDA),
+    ('^PDA2CFG/$', PDA2CFG),
+    ('^LP2NP/$', fore_LP2NP),
+    ('^NP2LP/$', fore_NP2LP),
+    (r'^$',fore_NP2LP),
+    #(r'^$',fore_LP2NP),
     #url(r'^admin/', include(admin.site.urls)),
 )
 

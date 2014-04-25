@@ -164,7 +164,7 @@ def judgeFA(request):
 
     judgeString = '01111001011101' #待判断的语句
     #judgeString = '01' #待判断的语句
-    index = 0        #当前执行到的语句位置
+    #index = 0        #当前执行到的语句位置
 
     #如果是空语句
     if judgeString == '':

@@ -1,4 +1,3 @@
-
 #encoding: utf-8
 __author__ = 'manman'
 #from django.template import Context
@@ -70,25 +69,40 @@ PDA = {
                 }
             },
         },
+
+    }
+#上下无关文法
+CFG = {
+        'type':'CFG',
+        'Variable':['S'],
+        'Terminal':['i','e'],
+        'Start':'S',
+        'Production':{
+            'S':'iSS|e'
+        }
     }
 
-
 #NFA转DFA函数
-def judgePDA(request):
+def CFG2PDA(request):
     global PDA
     #从前端得到FA和judgeString的值
     #PDA = simplejson.loads(request.raw_post_data)
-    #judgeString = simplejson.loads(request.raw_post_data)
 
-    judgeString = '010110100001011010' #待判断的语句
-    #judgeString = '0101111010' #待判断的语句
     index = 0        #当前执行到的语句位置
+    #初始化CFG
+    CFG = {
+        'type':'CFG',
+        'Variable':[],
+        'Terminal':[],
+        'Start':'S',
+        'Production':{
+        }
+    }
+    add_new_state = {}#已经重命名过的新状态，对应他的新名字
 
-    #如果是空语句
-    if judgeString == '':
-        return HttpResponse(PDA['state'][PDA['start_state']]['is_final'])
-    #return HttpResponse(False)
-    return HttpResponse(per_judgePDA(PDA,PDA['start_state'],judgeString,index))
+
+    json=simplejson.dumps(CFG)
+    return HttpResponse(json)
 
 
 def per_judgePDA(PDA,now_state,judgeString,index):
