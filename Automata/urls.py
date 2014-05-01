@@ -9,6 +9,7 @@ from Automata.judgeTuring import *
 from Automata.CFG2PDA import *
 from Automata.PDA2CFG import *
 from Automata.convertNP_LP import *
+from Automata.RE2DFA import *
 
 #admin.autodiscover()
 
@@ -25,7 +26,8 @@ urlpatterns = patterns('',
     ('^PDA2CFG/$', PDA2CFG),
     ('^LP2NP/$', fore_LP2NP),
     ('^NP2LP/$', fore_NP2LP),
-    (r'^$',fore_NP2LP),
+    ('^RE2DFA/$', RE2DFA),
+    (r'^$',RE2DFA),
     #(r'^$',fore_LP2NP),
     #url(r'^admin/', include(admin.site.urls)),
 )
