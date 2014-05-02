@@ -29,7 +29,7 @@ urlpatterns = patterns('',
     ('^NP2LP/$', fore_NP2LP),
     ('^RE2DFA/$', fore_RE2DFA),
     ('^judgeRE/$', judgeRE),
-    (r'^$',judgeRE),
+    (r'^$',fore_RE2DFA),
     #(r'^$',fore_LP2NP),
     #url(r'^admin/', include(admin.site.urls)),
 )

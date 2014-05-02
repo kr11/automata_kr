@@ -9,7 +9,7 @@ import copy
 #test样例，json格式
 
 REstring = '(a+b)*abb'
-
+REstring = u'ε' +'+1'
 T_stack = []  #表达式栈，存储字符串等
 connect = 0   #状态位，记录是否出现两位连续的字符串。
 OP_stack = ['#'] #运算符栈，预存入‘#’
@@ -65,8 +65,11 @@ def CrtSubTree(ch):
         new_tree['lastpos'] = copy.deepcopy(new_tree['left_child']['lastpos'])
         #follow修改
         for pos in new_tree['lastpos']:
+            if pos != '#':
             #leaf_node[pos]['followpos'].extend(new_tree['firstpos'])
-            leaf_node[str(pos)]['followpos'] = list(set(leaf_node[str(pos)]['followpos']) | set(new_tree['firstpos']))
+                leaf_node[str(pos)]['followpos'] = list(set(leaf_node[str(pos)]['followpos']) | set(new_tree['firstpos']))
+                if '#' in leaf_node[str(pos)]['followpos'] and len(leaf_node[str(pos)]['followpos']) > 1:
+                    leaf_node[str(pos)]['followpos'].remove('#')
     else:#二元操作符
         if len(T_stack) < 2:
             return False
@@ -81,20 +84,33 @@ def CrtSubTree(ch):
             if temp1['nullable']:
                 #new_tree['firstpos'].extend(temp2['firstpos'])
                 new_tree['firstpos'] = list(set(new_tree['firstpos']) | set(temp2['lastpos']))
+                if '#' in new_tree['firstpos'] and len(new_tree['firstpos']) > 1:
+                    new_tree['firstpos'].remove('#')
             new_tree['lastpos'] = copy.deepcopy(temp2['lastpos'])
             if temp2['nullable']:
                 #new_tree['lastpos'].extend(temp1['lastpos'])
                  new_tree['lastpos'] = list(set(new_tree['lastpos']) | set(temp1['lastpos']))
+                 if '#' in new_tree['lastpos'] and len(new_tree['lastpos']) > 1:
+                    new_tree['lastpos'].remove('#')
             #follow修改
             for pos in temp1['lastpos']:
                 #leaf_node[pos]['followpos'] = copy.deepcopy(temp2['firstpos'])
                 #leaf_node[pos]['followpos'].extend(temp2['firstpos'])
-                leaf_node[str(pos)]['followpos'] = list(set(leaf_node[str(pos)]['followpos']) | set(temp2['firstpos']))
+                if pos != '#':
+                    leaf_node[str(pos)]['followpos'] = list(set(leaf_node[str(pos)]['followpos']) | set(temp2['firstpos']))
+                    if '#' in leaf_node[str(pos)]['followpos'] and len(leaf_node[str(pos)]['followpos']) > 1:
+                        leaf_node[str(pos)]['followpos'].remove('#')
         elif ch == '+':
             #null，first，last，
             new_tree['nullable'] = temp1['nullable'] or temp2['nullable']
-            new_tree['firstpos'] = temp1['firstpos'] + temp2['firstpos']
-            new_tree['lastpos'] = temp1['lastpos'] + temp2['lastpos']
+            #new_tree['firstpos'] = temp1['firstpos'] + temp2['firstpos']
+            new_tree['firstpos'] = list(set(temp1['firstpos']) | set(temp2['firstpos']))
+            if '#' in new_tree['firstpos'] and len(new_tree['firstpos']) > 1:
+                new_tree['firstpos'].remove('#')
+            #new_tree['lastpos'] = temp1['lastpos'] + temp2['lastpos']
+            new_tree['lastpos'] = list(set(temp1['lastpos']) | set(temp2['lastpos']))
+            if '#' in new_tree['lastpos'] and len(new_tree['lastpos']) > 1:
+                new_tree['lastpos'].remove('#')
 
     T_stack.append(new_tree)
     return True
