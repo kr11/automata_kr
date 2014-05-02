@@ -220,3 +220,6 @@ def retransition(state_name):
 
         #给上一层添加转移state_name
         DFA['state']['Q'+ str(add_new_state['_'.join(state_name)])]['transition'][input_str] = ['Q'+ str(add_new_state[new_state_name])]
+
+
+

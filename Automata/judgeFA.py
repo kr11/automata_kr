@@ -169,7 +169,7 @@ def judgeFA(request):
     #如果是空语句
     if judgeString == '':
         return HttpResponse(FA['state'][FA['start']] in FA['final'])
-    return HttpResponse(per_judgeFA(FA,FA['start'],judgeString,index))
+    return HttpResponse(per_judgeFA(FA,FA['start'],judgeString,0))
 
 
 #递归每一步的判断
