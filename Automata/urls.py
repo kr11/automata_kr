@@ -11,7 +11,8 @@ from Automata.PDA2CFG import *
 from Automata.convertNP_LP import *
 from Automata.RE2DFA import *
 from Automata.judgeRE import *
-
+from Automata.DFA2RE_route import *
+from Automata.DFA2RE_state import *
 #admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -29,7 +30,9 @@ urlpatterns = patterns('',
     ('^NP2LP/$', fore_NP2LP),
     ('^RE2DFA/$', fore_RE2DFA),
     ('^judgeRE/$', judgeRE),
-    (r'^$',fore_RE2DFA),
+    ('^DFA2RE_route/$',fore_DFA2RE_route),
+    ('^DFA2RE_state/$',fore_DFA2RE_state),
+    (r'^$',fore_DFA2RE_route),
     #(r'^$',fore_LP2NP),
     #url(r'^admin/', include(admin.site.urls)),
 )
