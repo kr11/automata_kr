@@ -59,9 +59,38 @@ def connnect_preP(CFG):
     return CFG
 
 #将连在一起的pre_Production拆分成final_Production
-def parse_finalP():
-    return 0
+def parse_finalP(CFG):
+    for fore in CFG['pre_Production']:
+        product = CFG['pre_Production'][fore].split('|')
+        index = 0
+        CFG['final_Production'][fore] = []
+        for per_pro in product:
+            #将每个连起来的串分割成有终结符或变元组成的数组
+            temp = parsePro(per_pro,CFG['Variable'],CFG['Terminal'])
+            if temp == []:
+                return [] #[]说明出错，返回
+            else:
+                CFG['final_Production'][fore].append(temp)
+    return CFG
 
+def parsePro(per_pro,Var,Ter):
+    list = []
+    #当前扫描位置
+    index = 0
+    #终结符
+    while(index < len(per_pro)):
+        iffound = False
+        for i in range(index+1,len(per_pro)+1):
+            temp = per_pro[index:i]
+            if temp in Var or temp in Ter:
+                index = i
+                list.append(temp)
+                iffound = True
+                break
+
+            if iffound == False:
+                return []
+    return list
 
 #初始化add_new_state，将所有[qXp]编号，放入
 def number_addNewState(PDA):
