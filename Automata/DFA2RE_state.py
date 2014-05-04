@@ -41,8 +41,6 @@ DFA = {
                 'is_start':False,
                 'is_final':True,
                 'transition':{
-                    '0':['A'],
-                    '1':['A','B'],
                 }
             },
         },
@@ -86,42 +84,46 @@ def init_table(DFA):
     for i in range(state_num):
         for j in range(state_num):
             trans = trans0(i,j,DFA,state_alias)
-            if i != j:
-                if len(trans) == 0:
-                    pri_table[i][j] = '$'
-                else:
-                    pri_table[i][j] = '+'.join(trans)
+            if len(trans) == 0:
+                pri_table[i][j] = '($)'
             else:
+                pri_table[i][j] = '('+'+'.join(trans)+')'
+            #if i != j:
+            #    if len(trans) == 0:
+            #        pri_table[i][j] = '($)'
+            #    else:
+            #        pri_table[i][j] = '('+'+'.join(trans)+')'
+            #else:
                 #将空转移加入
-                if u'ε' not in trans:
-                    trans = [u'ε'] + trans
-                pri_table[i][j] = '+'.join(trans)
+            #    if u'ε' not in trans:
+            #        trans = [u'ε'] + trans
+            #    pri_table[i][j] = '('+'+'.join(trans)+')'
 
 
 #返回Rij + Rik(Rkk)*Rkj并化简
 def route(i,j,k):
     global table
-    Rij = table[i][j]
-    Rik = table[i][k]
-    Rkk = table[k][k]
-    Rkj = table[k][j]
+    Rij = table[i][j][1:-1]
+    Rik = table[i][k][1:-1]
+    Rkk = table[k][k][1:-1]
+    Rkj = table[k][j][1:-1]
     str1 = ''
     str2 = ''
     if Rij != '$':
         str1 = Rij
     #后三项
     if Rik == '$' or Rkj == '$':
-        return Rij
+        return '('+Rij+')'
     elif Rkk == '$':
         #Rkk*= u'ε'
         if Rik == Rkj == u'ε':
             str2 = u'ε'
             if str1 == '':
-                return u'ε'
+                return u'(ε)'
             elif str1[0] == u'ε':
-                return str1
+                return '('+str1+')'
             else:
-                return u'ε' + str1
+                return u'(ε' + str1 + ')'
         else:
             #化简，此时str2不为$或者全空
             #处理Rkk
@@ -129,37 +131,41 @@ def route(i,j,k):
             #处理Rik
             if Rik == u'ε':
                 Rik = ''
+            else:
+                Rik = '(' + Rik + ')'
             #处理Rkj
             if Rkj == u'ε':
                 Rkj = ''
+            else:
+                Rkj = '(' + Rkj + ')'
             if Rkj == Rik:
                 Rkj = ''
             #设置Rkk
             str2 = Rik + Rkk + Rkj
             #综合
             if str1 == '':
-                return str2
+                return '(' + str2 +')'
             elif str1 == u'ε':
                 if str2[0] == u'ε':
-                    return  str2
+                    return  '(' + str2 + ')'
                 else:
-                    return  u'ε+' + str2
+                    return  u'(ε+' + str2 + ')'
             elif str1[0] == u'ε' and len(str1) > 1:
                 if str2[0] == u'ε':
                     str2 = str2[2:len(str2)]
-                    return str1 + '+' + str2
+                    return '(' + str1 + '+' + str2 + ')'
                 else:
-                    return str1 + '+' + str2
+                    return '(' + str1 + '+' + str2 + ')'
             else:
-                return str1 + '+' + str2
+                return '(' + str1 + '+' + str2 + ')'
     elif Rik == Rkk == Rkj == u'ε':
         str2 = u'ε'
         if str1 == '':
-            return u'ε'
+            return u'(ε)'
         elif str1[0] == u'ε':
-            return str1
+            return '('+str1+')'
         else:
-            return u'ε' + str1
+            return u'(ε' + str1 + ')'
     else:
         #化简，此时str2不为$或者全空
         #处理Rkk
@@ -182,40 +188,80 @@ def route(i,j,k):
             Rkk = Rkk + '*'
         elif len(Rkk) > 1:
             Rkk = '(' + Rkk + ')*'
-        str2 = Rik + Rkk + Rkj
+        if Rik != '':
+            Rik = '(' + Rik + ')'
+        if Rkk != '':
+            Rkk = '(' + Rkk + ')'
+        if Rkj != '':
+            Rkj = '(' + Rkj + ')'
+        str2 = Rik  + Rkk + Rkj
         #综合
         if str1 == '':
-            return str2
+            return '(' + str2 +')'
         elif str1 == u'ε':
             if str2[0] == u'ε':
-                return  str2
+                return  '(' + str2 + ')'
             else:
-                return  u'ε+' + str2
+                return  u'(ε+' + str2 + ')'
         elif str1[0] == u'ε' and len(str1) > 1:
             if str2[0] == u'ε':
                 str2 = str2[2:len(str2)]
-                return str1 + '+' + str2
+                return '(' + str1 + '+' + str2 + ')'
             else:
-                return str1 + '+' + str2
+                return '(' + str1 + '+' + str2 + ')'
         else:
-            return str1 + '+' + str2
+            return '(' + str1 + '+' + str2 + ')'
 
 #计算R*SU*形式的正则表达式并返回
 def star_cat_star(R,S,U):
-    if R == '$' or S == '$' or U == '$':
+    R = R[1:-1]
+    S = S[1:-1]
+    U = U[1:-1]
+    if S == '$':
         return '$'
+    elif R == '$' or U == '$':
+        if R == '$' or R == u'ε':
+            R = ''
+        elif R[0] == u'ε':
+            R = R[2:len(R)]
+        if U == '$' or U == u'ε':
+            U = ''
+        elif R[0] == u'ε':
+            U = U[2:len(U)]
+        #处理S
+        if S == u'ε':
+            S = ''
+        elif S == u'ε+' + R or S == u'ε+' + U:
+            S = ''
+        #处理U
+        if S == '' and U == R:
+            U == ''
+        elif len(U) == 1:
+            U = U + '*'
+        elif len(U) > 1:
+            U = '(' + U + ')*'
+        #处理R
+        if len(R) == 1:
+            R = R + '*'
+        elif len(R) > 1:
+            R = '(' + R + ')*'
+        #处理S
+        if len(S) > 1:
+            S = '(' + S + ')'
+        if R+S+U == '':
+            return u'(ε)'
+        return  '(' + R + S + U + ')'
     if R == S == U == u'ε':
-        return u'ε'
+        return u'(ε)'
     #化简，此时str2不为$或者全空
     #处理R
     if R == u'ε':
         R = ''
     elif R[0] == u'ε':
         R = R[2:len(R)]
-    #处理U
     if U == u'ε':
         U = ''
-    elif U[0] == u'ε':
+    elif R[0] == u'ε':
         U = U[2:len(U)]
     #处理S
     if S == u'ε':
@@ -234,26 +280,28 @@ def star_cat_star(R,S,U):
         R = R + '*'
     elif len(R) > 1:
         R = '(' + R + ')*'
-    return  R + S + U
+    #处理S
+    if len(S) > 1:
+        S = '(' + S + ')'
+    return  '(' + R + S + U + ')'
 
 #处理Rss*化简并返回
 def star_string(Rss):
+    Rss = Rss[1:-1]
     if Rss == '$':
-        return u'ε'
+        return u'(ε)'
     if Rss == u'ε':
-        return u'ε'
+        return u'(ε)'
     #化简，此时Rss不为$或者全空
     #处理Rss
-    if Rss == u'ε':
-        R = ''
-    elif Rss[0] == u'ε':
+    if Rss[0] == u'ε':
         R = Rss[2:len(Rss)]
     #设置Rss
     if len(Rss) == 1:
         R = R + '*'
     elif len(Rss) > 1:
         R = '(' + Rss + ')*'
-    return  Rss
+    return  '(' +  Rss + ')'
 
 
 def DFA2RE_state(DFA):
@@ -271,13 +319,14 @@ def DFA2RE_state(DFA):
         table = copy.deepcopy(pri_table)
         for to_rmv_st in range(state_num):#to_rmv_st待删除状态
             if to_rmv_st != start_state \
-                and to_rmv_st not in final_state\
+                and to_rmv_st != f_st \
                 and to_rmv_st not in rmv_state:
                 rmv_state.append(to_rmv_st)
                 for state1 in range(state_num):
                     for state2 in range(state_num):
                         if state1 not in rmv_state and state2 not in rmv_state:
-                            table[state1][state2] = route(state1,state2,to_rmv_st)
+                            res = route(state1,state2,to_rmv_st)
+                            table[state1][state2] = res
         #所有非初始终结状态均删除，得到结果：
         temp_string = ''
         if f_st != start_state:
@@ -290,6 +339,8 @@ def DFA2RE_state(DFA):
     #合并
     if '$' in RE_result and len(RE_result) > 1:
         RE_result.remove('$')
+    for var in RE_result:
+        var = var[1:-1]
     return '+'.join(RE_result)
 
 

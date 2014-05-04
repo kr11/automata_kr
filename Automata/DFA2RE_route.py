@@ -68,38 +68,82 @@ def init_table(DFA):
             trans = trans0(i,j,DFA,state_alias)
             if i != j:
                 if len(trans) == 0:
-                    table[0][i][j] = '$'
+                    table[0][i][j] = '($)'
                 else:
-                    table[0][i][j] = '+'.join(trans)
+                    table[0][i][j] = '('+'+'.join(trans)+')'
             else:
                 #将空转移加入
                 if u'ε' not in trans:
                     trans = [u'ε'] + trans
-                table[0][i][j] = '+'.join(trans)
+                table[0][i][j] = '('+'+'.join(trans)+')'
 
 
 
 def route(pre,i,j,k):
     global table
-    Rij = table[pre][i][j]
-    Rik = table[pre][i][k]
-    Rkk = table[pre][k][k]
-    Rkj = table[pre][k][j]
+    Rij = table[pre][i][j][1:-1]
+    Rik = table[pre][i][k][1:-1]
+    Rkk = table[pre][k][k][1:-1]
+    Rkj = table[pre][k][j][1:-1]
     str1 = ''
     str2 = ''
     if Rij != '$':
         str1 = Rij
     #后三项
-    if Rik == '$' or Rkj == '$' or Rkk == '$':
-        return Rij
+    if Rik == '$' or Rkj == '$':
+        return '('+Rij+')'
+    elif Rkk == '$':
+        #Rkk*= u'ε'
+        if Rik == Rkj == u'ε':
+            str2 = u'ε'
+            if str1 == '':
+                return u'(ε)'
+            elif str1[0] == u'ε':
+                return '('+str1+')'
+            else:
+                return u'(ε' + str1 + ')'
+        else:
+            #化简，此时str2不为$或者全空
+            #处理Rkk
+            Rkk = ''
+            #处理Rik
+            if Rik == u'ε':
+                Rik = ''
+            else:
+                Rik = '(' + Rik + ')'
+            #处理Rkj
+            if Rkj == u'ε':
+                Rkj = ''
+            else:
+                Rkj = '(' + Rkj + ')'
+            if Rkj == Rik:
+                Rkj = ''
+            #设置Rkk
+            str2 = Rik + Rkk + Rkj
+            #综合
+            if str1 == '':
+                return '(' + str2 +')'
+            elif str1 == u'ε':
+                if str2[0] == u'ε':
+                    return  '(' + str2 + ')'
+                else:
+                    return  u'(ε+' + str2 + ')'
+            elif str1[0] == u'ε' and len(str1) > 1:
+                if str2[0] == u'ε':
+                    str2 = str2[2:len(str2)]
+                    return '(' + str1 + '+' + str2 + ')'
+                else:
+                    return '(' + str1 + '+' + str2 + ')'
+            else:
+                return '(' + str1 + '+' + str2 + ')'
     elif Rik == Rkk == Rkj == u'ε':
         str2 = u'ε'
         if str1 == '':
-            return u'ε'
+            return u'(ε)'
         elif str1[0] == u'ε':
-            return str1
+            return '('+str1+')'
         else:
-            return u'ε' + str1
+            return u'(ε' + str1 + ')'
     else:
         #化简，此时str2不为$或者全空
         #处理Rkk
@@ -122,23 +166,29 @@ def route(pre,i,j,k):
             Rkk = Rkk + '*'
         elif len(Rkk) > 1:
             Rkk = '(' + Rkk + ')*'
-        str2 = Rik + Rkk + Rkj
+        if Rik != '':
+            Rik = '(' + Rik + ')'
+        if Rkk != '':
+            Rkk = '(' + Rkk + ')'
+        if Rkj != '':
+            Rkj = '(' + Rkj + ')'
+        str2 = Rik  + Rkk + Rkj
         #综合
         if str1 == '':
-            return str2
+            return '(' + str2 +')'
         elif str1 == u'ε':
             if str2[0] == u'ε':
-                return  str2
+                return  '(' + str2 + ')'
             else:
-                return  u'ε+' + str2
+                return  u'(ε+' + str2 + ')'
         elif str1[0] == u'ε' and len(str1) > 1:
             if str2[0] == u'ε':
                 str2 = str2[2:len(str2)]
-                return str1 + '+' + str2
+                return '(' + str1 + '+' + str2 + ')'
             else:
-                return str1 + '+' + str2
+                return '(' + str1 + '+' + str2 + ')'
         else:
-            return str1 + '+' + str2
+            return '(' + str1 + '+' + str2 + ')'
 
 def DFA2RE_route(DFA):
     global start_state,final_state,table
@@ -162,6 +212,10 @@ def DFA2RE_route(DFA):
             RE_result.append(temp)
     if '$' in RE_result and len(RE_result) > 1:
         RE_result.remove('$')
+    for var in RE_result:
+        var = var[1:-1]
+    #if len(RE_result) == 1:
+    #    return RE_result[0][1:-1]
     return '+'.join(RE_result)
 
 

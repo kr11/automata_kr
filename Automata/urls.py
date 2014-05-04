@@ -32,7 +32,7 @@ urlpatterns = patterns('',
     ('^judgeRE/$', judgeRE),
     ('^DFA2RE_route/$',fore_DFA2RE_route),
     ('^DFA2RE_state/$',fore_DFA2RE_state),
-    (r'^$',fore_DFA2RE_route),
+    (r'^$',fore_DFA2RE_state),
     #(r'^$',fore_LP2NP),
     #url(r'^admin/', include(admin.site.urls)),
 )
