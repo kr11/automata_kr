@@ -86,13 +86,12 @@ def CFG2PDA(CFG):
     for A in CFG['Variable']:
         PDA['state']['q0']['transition'][u'ε'][A] = []
         for prc in CFG['final_Production'][A]:
-            PDA['state']['q0']['transition'][u'ε'][A].append(['q',prc])
+            PDA['state']['q0']['transition'][u'ε'][A].append(['q0',prc])
     #终结符
     for ter in CFG['Terminal']:
         PDA['state']['q0']['transition'][ter] = {}
         PDA['state']['q0']['transition'][ter][ter] = [['q0',[u'ε']]]
     return PDA
-
 
 
 

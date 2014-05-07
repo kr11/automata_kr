@@ -8,8 +8,8 @@ from django.utils import simplejson
 import copy
 #test样例，json格式
 
-REstring = '(a+b)*abb'
-REstring = u'ε' +'+1'
+REstring = '((e+g)*+ee)*g'
+REstring = '(1+01)*0*'
 T_stack = []  #表达式栈，存储字符串等
 connect = 0   #状态位，记录是否出现两位连续的字符串。
 OP_stack = ['#'] #运算符栈，预存入‘#’
@@ -56,7 +56,7 @@ def CrtSubTree(ch):
     if ch == '*':
         if len(T_stack) < 1:
             return False
-        if T_stack[0]['data'] == '*':
+        if T_stack[-1]['data'] == '*':
             return True
         new_tree['left_child'] = T_stack.pop()
         #null，first，last，
@@ -172,8 +172,8 @@ def checkREstring(REstring):
             return False,''
         if REstring[i] == '+':
             if i == 0 or i == len(REstring) - 1 \
-                or (REstring[i-1] in OP_Char and REstring[i-1] != ')' and REstring[i-1] != '*')\
-                or (REstring[i+1] in OP_Char and REstring[i+1] != '('):
+                or (i > 0 and REstring[i-1] in OP_Char and REstring[i-1] != ')' and REstring[i-1] != '*')\
+                or (i < len(REstring) - 1 and REstring[i+1] in OP_Char and REstring[i+1] != '('):
                 return False,[]
         if REstring[i] == '*':
             if i == 0  \
@@ -191,11 +191,11 @@ def checkREstring(REstring):
 
     while ifChange:
         ifChange = False
-        for i in range(0,len(REstring)-1):
-            if (REstring[i] not in OP_Char) and (REstring[i+1] not in OP_Char):
+        for i in range(len(REstring)):
+            if i < len(REstring)-1 and (REstring[i] not in OP_Char) and (REstring[i+1] not in OP_Char):
                 REstring.insert(i+1,'$')
                 ifChange = True
-            if (REstring[i] not in OP_Char) and (REstring[i-1] == ')' or REstring[i-1] == '*'):
+            if (REstring[i] not in OP_Char) and ((REstring[i-1] == ')' or REstring[i-1] == '*')):
                 REstring.insert(i,'$')
                 ifChange = True
 

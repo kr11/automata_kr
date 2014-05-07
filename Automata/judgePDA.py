@@ -5,6 +5,7 @@ __author__ = 'manman'
 from django.http import HttpResponse
 from django.utils import simplejson
 from Automata.NFA2DFA import *
+from Automata.CFG2PDA import *
 from django.shortcuts import render_to_response
 #test样例，json格式
 
@@ -72,7 +73,8 @@ PDA = {
         },
     }
 
-
+infer_terminal = []
+infer_stack = []
 #NFA转DFA函数
 def judgePDA(request):
     global PDA
@@ -92,6 +94,7 @@ def judgePDA(request):
 
 
 def per_judgePDA(PDA,now_state,judgeString,index):
+    global infer_stack,infer_terminal
     #栈空为错
     if PDA['stack'] == []:
         return  False
@@ -112,9 +115,18 @@ def per_judgePDA(PDA,now_state,judgeString,index):
                         state[1].reverse()
                         PDA['stack'] += state[1]
                         state[1].reverse()
+
+                    #空转移的压栈
+                    if infer_terminal == []:
+                        infer_terminal.append('')
+                    else:
+                        infer_terminal.append(infer_terminal[-1])
+                    infer_stack.append(''.join(PDA['stack']))
                     if per_judgePDA(PDA,state[0],judgeString,index):
                         return True
                     #还原
+                    infer_stack.pop()
+                    infer_terminal.pop()
                     if state[1] != [u'ε']:
                         for i in range(0,len(state[1])):
                             PDA['stack'].pop()
@@ -133,11 +145,33 @@ def per_judgePDA(PDA,now_state,judgeString,index):
                         state[1].reverse()
                         PDA['stack'] += state[1]
                         state[1].reverse()
+                    if infer_terminal == []:
+                        infer_terminal.append('')
+                    else:
+                        infer_terminal.append(infer_terminal[-1]+str)
+                    infer_stack.append(''.join(PDA['stack']))
                     if per_judgePDA(PDA,state[0],judgeString,index+1):
                         return True
+                    infer_terminal.pop()
+                    infer_stack.pop()
                     #还原
                     if state[1] != [u'ε']:
                         for i in range(0,len(state[1])):
                             PDA['stack'].pop()
                     PDA['stack'] += [temp]
     return False
+
+
+
+#最左推导函数
+def left_infer(request):
+    global CFG,infer_terminal,infer_stack
+    #CFG = simplejson.loads(request.raw_post_data)
+    #judgeString = simplejson.loads(request.raw_post_data)
+    judgeString = '0' #待判断的语句
+    PDA = CFG2PDA(CFG)
+    per_judgePDA(PDA,PDA['start_state'],judgeString,0)
+
+    json=simplejson.dumps(PDA)
+    return HttpResponse(json)
+

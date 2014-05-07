@@ -13,6 +13,7 @@ from Automata.RE2DFA import *
 from Automata.judgeRE import *
 from Automata.DFA2RE_route import *
 from Automata.DFA2RE_state import *
+from Automata.simplifyCFG import *
 #admin.autodiscover()
 
 urlpatterns = patterns('',
@@ -32,7 +33,9 @@ urlpatterns = patterns('',
     ('^DFA2RE_route/$',fore_DFA2RE_route),
     ('^DFA2RE_state/$',fore_DFA2RE_state),
     ('^fore_CFG2PDA/$',fore_CFG2PDA),
-    (r'^$',fore_CFG2PDA),
+    ('^left_infer/$',left_infer),
+    ('^fore_CFGsimplify/$',fore_CFGsimplify),
+    (r'^$',fore_CFGsimplify),
     #(r'^$',fore_LP2NP),
     #url(r'^admin/', include(admin.site.urls)),
 )

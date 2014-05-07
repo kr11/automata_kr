@@ -65,12 +65,16 @@ def parse_finalP(CFG):
         index = 0
         CFG['final_Production'][fore] = []
         for per_pro in product:
+            if per_pro == u'ε':
+                CFG['final_Production'][fore].append([u'ε'])
+                continue
             #将每个连起来的串分割成有终结符或变元组成的数组
             temp = parsePro(per_pro,CFG['Variable'],CFG['Terminal'])
             if temp == []:
                 return [] #[]说明出错，返回
             else:
                 CFG['final_Production'][fore].append(temp)
+
     return CFG
 
 def parsePro(per_pro,Var,Ter):
