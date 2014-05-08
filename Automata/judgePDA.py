@@ -160,7 +160,7 @@ def fore_judgePDA(request):
     #从前端得到FA和judgeString的值
     #PDA = simplejson.loads(request.raw_post_data)
     #judgeString = simplejson.loads(request.raw_post_data)
-    judgeString = '00' #待判断的语句
+    judgeString = '010110011010' #待判断的语句
     #judgeString = '0101111010' #待判断的语句
 
     CFG = PDA2CFG(PDA)

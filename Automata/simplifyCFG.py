@@ -85,7 +85,14 @@ DFG = {
     }
 #存放每次去除空产生式后的结果
 temp_product = []
-
+def var_if_null(CFG_prod,m_var):
+    global if_null_flag
+    if m_var in if_null_flag:
+        return if_null_flag[m_var]
+    if m_var not in CFG_prod:
+        if_null_flag[m_var] = 0
+        return 0
+    #不属于特殊情况，
 
 #去除u'ε'产生式
 def removeNull(CFG):
@@ -93,25 +100,41 @@ def removeNull(CFG):
     #去空
     #if_null_flag记录每一条产生式是否可空
     if_null_flag = {}
+
+
     #终结符均不可空
     #0：不可空 1：可空；2：全空（只能产生）u'ε'
     for ter in CFG['Terminal']:
         if_null_flag[ter] = 0
+    for ter in CFG['Variable']:
+        if_null_flag[ter] = 0
     #变元
     temp_CFG = copy.deepcopy(CFG)
-    for var in temp_CFG['Variable']:
-        if var not in temp_CFG['final_Production']:
-            #return False
-            #CFG['Variable'].remove(var)
-            #continue
-            if_null_flag[var] = 0
-        #0：不可空 1：可空；2：全空（只能产生）u'ε'
-        elif [u'ε'] not in temp_CFG['final_Production'][var]:
-            if_null_flag[var] = 0
-        elif len(temp_CFG['final_Production'][var]) == 1:
-            if_null_flag[var] = 2
-        else:
-            if_null_flag[var] = 1
+    m_changed = True
+    while m_changed:
+        m_changed = False
+        for m_var in temp_CFG['Variable']:
+            if if_null_flag[m_var] == 1 or m_var not in temp_CFG['final_Production']:
+                continue
+            #对该变元的每一个产生式进行判断
+            for str_list in temp_CFG['final_Production'][m_var]:
+                #如果含空，修改
+                if str_list == [u'ε']:
+                    if_null_flag[m_var] = 1
+                    m_changed = True
+                    break
+                #对每一个符号进行判断
+                count = 0
+                for m_char in str_list:
+                    if if_null_flag[m_char] == 1:
+                        count += 1
+                    else:
+                        break
+                #全为空
+                if count == len(str_list):
+                    if_null_flag[m_var] = 1
+                    m_changed = True
+
     #将所有不能判断可空去掉,产生式中未出现的串，变元和终结符
     CFG_product = copy.deepcopy(CFG['final_Production'])
 
@@ -345,7 +368,7 @@ def turn_CNF(CFG):
                         new_fore_char[state] = new_var
                         #修改，增加产生式
                         CFG['final_Production'][fore][s] = [str_list[0],new_var]
-                        CFG['final_Production'][new_var] = copy.deepcopy(second)
+                        CFG['final_Production'][new_var] = copy.deepcopy([second])
                     m_changed = True
     return CFG
 
