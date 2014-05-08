@@ -4,8 +4,8 @@ __author__ = 'manman'
 #from django.template import Context
 from django.http import HttpResponse
 from django.utils import simplejson
-from Automata.NFA2DFA import *
-from Automata.CFG2PDA import *
+from Automata.judgeCFG import *
+from Automata.PDA2CFG import *
 from django.shortcuts import render_to_response
 #test样例，json格式
 
@@ -72,106 +72,97 @@ PDA = {
             },
         },
     }
+rDA = {
+        'type':'PDA',
+        'receive':'empty',
+         'input':['0','1',u'ε'],
+         'stack_input':['0','1','Z0'],
+        'start_state':'q0',
+        'start_stack':'Z0',
+        'stack':['Z0'],
+        'final':[],
+        'state':{
+            'q0':{
+                'name':'q0',
+                'is_start':True,
+                'is_final':False,
+                'transition':{
+                    #上层的ε，0，1为输入符号input
+                    #下一层Z0，1，0为输入栈符号
+                    u'ε':{
 
-infer_terminal = []
-infer_stack = []
+                        'Z0':[['q1',['Z0']],],
+                        '0':[['q1',['0']],],
+                        '1':[['q1',['1']],],
+                    },
+                    '0':{
+                        #状态q0输入符号ε，栈顶为Z0，则
+                        #1. 转到q1，栈顶换成：【0，Z0，……】
+                        #2.……
+                        'Z0':[['q0',['0','Z0']],],
+                        '0':[['q0',['0','0']],],
+                        '1':[['q0',['0','1']],],
+                    },
+                     '1':{
+                        'Z0':[['q0',['1','Z0']],],
+                        '0':[['q0',['1','0']],],
+                        '1':[['q0',['1','1']],],
+                    },
+                }
+            },
+            'q1':{
+                'name':'q1',
+                'is_start':False,
+                'is_final':False,
+                'transition':{
+                    u'ε':{
+                        'Z0':[['q1',[u'ε']],],
+                    },
+                    '0':{
+                        '0':[['q1',[u'ε']],],
+                    },
+                     '1':{
+                        '1':[['q1',[u'ε']],],
+                    },
+                }
+            },
+
+        },
+    }
+ADA = {
+        'type':'PDA',
+        'receive':'empty',
+        'input':['i','e'],
+        'stack_input':['Z'],
+        'start_state':'q',
+        'start_stack':'Z',
+        'stack':['Z'],
+        'final':[],
+        'state':{
+            'q':{
+                'name':'q',
+                'is_start':True,
+                'is_final':False,
+                'transition':{
+                    'i':{
+                        'Z':[['q',['Z','Z']],],
+                    },
+                     'e':{
+                        'Z':[['q',[u'ε']],],
+                    },
+                }
+            },
+        },
+    }
 #NFA转DFA函数
-def judgePDA(request):
+def fore_judgePDA(request):
     global PDA
     #从前端得到FA和judgeString的值
     #PDA = simplejson.loads(request.raw_post_data)
     #judgeString = simplejson.loads(request.raw_post_data)
-
-    judgeString = '010110100001011010' #待判断的语句
+    judgeString = '00' #待判断的语句
     #judgeString = '0101111010' #待判断的语句
-    index = 0        #当前执行到的语句位置
 
-    #如果是空语句
-    if judgeString == '':
-        return HttpResponse(PDA['state'][PDA['start_state']]['is_final'])
-    #return HttpResponse(False)
-    return HttpResponse(per_judgePDA(PDA,PDA['start_state'],judgeString,index))
-
-
-def per_judgePDA(PDA,now_state,judgeString,index):
-    global infer_stack,infer_terminal
-    #栈空为错
-    if PDA['stack'] == []:
-        return  False
-    #输入串完毕
-    if index == len(judgeString):
-        if PDA['state'][now_state]['is_final']:
-            return True
-    #ε转移
-    now_transition = PDA['state'][now_state]['transition']
-    stack_top = PDA['stack'][-1]
-    if u'ε' in now_transition:
-        if stack_top in now_transition[u'ε']:
-            for state in now_transition[u'ε'][stack_top]:
-                if (state[0] != now_state or state[1] != [stack_top]):
-                    #替换
-                    temp = PDA['stack'].pop()
-                    if state[1] != [u'ε']:
-                        state[1].reverse()
-                        PDA['stack'] += state[1]
-                        state[1].reverse()
-
-                    #空转移的压栈
-                    if infer_terminal == []:
-                        infer_terminal.append('')
-                    else:
-                        infer_terminal.append(infer_terminal[-1])
-                    infer_stack.append(''.join(PDA['stack']))
-                    if per_judgePDA(PDA,state[0],judgeString,index):
-                        return True
-                    #还原
-                    infer_stack.pop()
-                    infer_terminal.pop()
-                    if state[1] != [u'ε']:
-                        for i in range(0,len(state[1])):
-                            PDA['stack'].pop()
-                    PDA['stack'] += [temp]
-    if index == len(judgeString):
-        return False
-    str = judgeString[index]
-    #转移
-    if str in now_transition:
-        if stack_top in now_transition[str]:
-            for state in now_transition[str][stack_top]:
-                if (state[0] != now_state or state[1] != [stack_top]):
-                    #替换
-                    temp = PDA['stack'].pop()
-                    if state[1] != [u'ε']:
-                        state[1].reverse()
-                        PDA['stack'] += state[1]
-                        state[1].reverse()
-                    if infer_terminal == []:
-                        infer_terminal.append('')
-                    else:
-                        infer_terminal.append(infer_terminal[-1]+str)
-                    infer_stack.append(''.join(PDA['stack']))
-                    if per_judgePDA(PDA,state[0],judgeString,index+1):
-                        return True
-                    infer_terminal.pop()
-                    infer_stack.pop()
-                    #还原
-                    if state[1] != [u'ε']:
-                        for i in range(0,len(state[1])):
-                            PDA['stack'].pop()
-                    PDA['stack'] += [temp]
-    return False
-
-
-
-#最左推导函数
-def left_infer(request):
-    global CFG,infer_terminal,infer_stack
-    #CFG = simplejson.loads(request.raw_post_data)
-    #judgeString = simplejson.loads(request.raw_post_data)
-    judgeString = '0' #待判断的语句
-    PDA = CFG2PDA(CFG)
-    per_judgePDA(PDA,PDA['start_state'],judgeString,0)
-
-    json=simplejson.dumps(PDA)
-    return HttpResponse(json)
+    CFG = PDA2CFG(PDA)
+    return HttpResponse(CYKAlgorithm(CFG,judgeString))
 

@@ -33,8 +33,123 @@ PDA = {
             },
         },
     }
+
+
+PDA = {
+        'type':'PDA',
+        'receive':'final',
+         'input':['0','1',u'ε'],
+         'stack_input':['0','1','Z0'],
+        'start_state':'q0',
+        'start_stack':'Z0',
+        'stack':['Z0'],
+        'final':['q2'],
+        'state':{
+            'q0':{
+                'name':'q0',
+                'is_start':True,
+                'is_final':False,
+                'transition':{
+                    #上层的ε，0，1为输入符号input
+                    #下一层Z0，1，0为输入栈符号
+                    u'ε':{
+
+                        'Z0':[['q1',['Z0']],],
+                        '0':[['q1',['0']],],
+                        '1':[['q1',['1']],],
+                    },
+                    '0':{
+                        #状态q0输入符号ε，栈顶为Z0，则
+                        #1. 转到q1，栈顶换成：【0，Z0，……】
+                        #2.……
+                        'Z0':[['q0',['0','Z0']],],
+                        '0':[['q0',['0','0']],],
+                        '1':[['q0',['0','1']],],
+                    },
+                     '1':{
+                        'Z0':[['q0',['1','Z0']],],
+                        '0':[['q0',['1','0']],],
+                        '1':[['q0',['1','1']],],
+                    },
+                }
+            },
+            'q1':{
+                'name':'q1',
+                'is_start':False,
+                'is_final':False,
+                'transition':{
+                    u'ε':{
+                        'Z0':[['q2',['Z0']],],
+                    },
+                    '0':{
+                        '0':[['q1',[u'ε']],],
+                    },
+                     '1':{
+                        '1':[['q1',[u'ε']],],
+                    },
+                }
+            },
+            'q2':{
+                'name':'q2',
+                'is_start':False,
+                'is_final':True,
+                'transition':{
+                }
+            },
+        },
+    }
+
+QDA = {
+        'type':'PDA',
+        'receive':'empty',
+         'input':['0','1',u'ε'],
+         'stack_input':['X','Z'],
+        'start_state':'q',
+        'start_stack':'Z',
+        'stack':['Z'],
+        'final':[],
+        'state':{
+            'q':{
+                'name':'q',
+                'is_start':True,
+                'is_final':False,
+                'transition':{
+                    #上层的ε，0，1为输入符号input
+                    #下一层Z0，1，0为输入栈符号
+                    u'ε':{
+
+                        'X':[['q',[u'ε']],],
+                    },
+                    '0':{
+                        #状态q0输入符号ε，栈顶为Z0，则
+                        #1. 转到q1，栈顶换成：【0，Z0，……】
+                        #2.……
+                        'X':[['p',['X']],],
+                    },
+                     '1':{
+                        'Z':[['q',['X','Z']],],
+                        'X':[['q',['X','X']],],
+                    },
+                }
+            },
+            'p':{
+                'name':'p',
+                'is_start':False,
+                'is_final':False,
+                'transition':{
+                    '1':{
+                        'X':[['p',[u'ε']],],
+                    },
+                    '0':{
+                        'Z':[['q',['Z']],],
+                    },
+                }
+            },
+        },
+    }
+
 #上下无关文法
-CFG = {
+qFG = {
         'type':'CFG',
         'Variable':['S'],
         'Terminal':['i','e'],
@@ -74,7 +189,6 @@ def parse_finalP(CFG):
                 return [] #[]说明出错，返回
             else:
                 CFG['final_Production'][fore].append(temp)
-
     return CFG
 
 def parsePro(per_pro,Var,Ter):
@@ -85,20 +199,22 @@ def parsePro(per_pro,Var,Ter):
     while(index < len(per_pro)):
         iffound = False
         for i in range(index+1,len(per_pro)+1):
-            temp = per_pro[index:i]
+            temp = per_pro[index:(len(per_pro)+index+1-i)]
             if temp in Var or temp in Ter:
-                index = i
+                index = len(per_pro)+index-i+1
                 list.append(temp)
                 iffound = True
                 break
-
-            if iffound == False:
-                return []
+        if iffound == False:
+            return []
     return list
+
+add_new_state = {}#已经重命名过的新状态，对应他的新名字
 
 #初始化add_new_state，将所有[qXp]编号，放入
 def number_addNewState(PDA):
-    Variable = []
+    global add_new_state
+    Variable = ['S']
     num = 0
     for i in PDA['stack_input']:
         for s in PDA['state']:
@@ -108,19 +224,15 @@ def number_addNewState(PDA):
                 num += 1
     return Variable
 
-add_new_state = {}#已经重命名过的新状态，对应他的新名字
 
 def turn_to_var(m_str):
     global add_new_state
     return 'Q' + str(add_new_state[m_str])
 #NFA转DFA函数
-def PDA2CFG(request):
-    global PDA,CFG
-    #从前端得到FA和judgeString的值
-    #PDA = simplejson.loads(request.raw_post_data)
-
-    new_state_count = 0   #下一次添加状态‘Q’+ new_state_count
-    temp = ''
+def PDA2CFG(PDA):
+    global CFG
+    if PDA['receive'] == 'final':
+        PDA = LP2NP(PDA)
     #初始化CFG
     CFG = {
         'type':'CFG',
@@ -148,21 +260,34 @@ def PDA2CFG(request):
                 for result in PDA['state'][state]['transition'][m_input][m_stack]:
                     k = len(result[1])
                     if result[1] == [u'ε']:
-                        k = 0
+                        #相当于pop操作，只有δ(q,ε,X) = {(q,ε)}   [qXq] -> e一种
+                        #相当于pop操作，只有δ(p,1, X) = {(p,ε)}   [pXp] -> 1一种
+                        temp = turn_to_var(state + m_stack + result[0])
+                        if temp not in CFG['final_Production']:
+                            CFG['final_Production'][temp] = []
+                        if m_input == u'ε' and u'ε' not in CFG['final_Production'][temp]:
+                            CFG['final_Production'][temp].append([u'ε'])
+                        else:
+                            if m_input not in CFG['Terminal']:
+                                CFG['Terminal'].append(m_input)
+                            if m_input not in CFG['final_Production'][temp]:
+                                CFG['final_Production'][temp].append([m_input])
+                        continue
                     #qXrk的每一种情况
                     for rk in PDA['state']:
                         temp = turn_to_var(state + m_stack + rk)
                         if temp not in CFG['final_Production']:
                             CFG['final_Production'][temp] = []
-                        if m_input == [u'ε']:
+                        if m_input == u'ε':
                             per_production(PDA,temp,result[0],result[1],rk,[],k)
                         else:
-                            CFG['Terminal'].append(m_input)
+                            if m_input not in CFG['Terminal']:
+                                CFG['Terminal'].append(m_input)
                             per_production(PDA,temp,result[0],result[1],rk,[m_input],k)
 
     CFG = connnect_preP(CFG)
-    json=simplejson.dumps(CFG)
-    return HttpResponse(json)
+    return CFG
+
 
 #到达k之后
 #PDA:；fore：待添加的产生式前半部分；fore_r:三部分的第一部分，与上一段同
@@ -192,3 +317,12 @@ def per_production(PDA,fore,fore_r,stack,rk,product,k):
         product.append(turn_to_var(fore_r + stack[-k] + state))
         per_production(PDA,fore,state,stack,rk,product,k-1)
         product.pop()
+
+
+def fore_PDA2CFG(request):
+    global PDA,CFG
+    #从前端得到FA和judgeString的值
+    #PDA = simplejson.loads(request.raw_post_data)
+    CFG = PDA2CFG(PDA)
+    json=simplejson.dumps(CFG)
+    return HttpResponse(json)
