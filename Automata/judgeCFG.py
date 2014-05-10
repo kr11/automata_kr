@@ -4,7 +4,7 @@ __author__ = 'manman'
 from django.http import HttpResponse
 from django.utils import simplejson
 from django.shortcuts import render_to_response
-from Automata.PDA2CFG import *
+from Automata.NFA2DFA import *
 from Automata.simplifyCFG import *
 import copy
 #test样例，json格式
@@ -31,6 +31,8 @@ judgeString = 'baaba'
 temp_product = []
 
 def CYKAlgorithm(CFG,judgeString):
+    if CFG['final_Production'] == {}:
+        CFG = parse_finalP(CFG)
     CFG = CFGsimplify(CFG)
     m_len = len(judgeString)+1
     CFG_product = CFG['final_Production']

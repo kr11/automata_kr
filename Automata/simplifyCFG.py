@@ -4,7 +4,7 @@ __author__ = 'manman'
 from django.http import HttpResponse
 from django.utils import simplejson
 from django.shortcuts import render_to_response
-from Automata.PDA2CFG import *
+from Automata.convertNP_LP import *
 import copy
 #test样例，json格式
 

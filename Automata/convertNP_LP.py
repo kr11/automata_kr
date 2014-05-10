@@ -3,8 +3,9 @@ __author__ = 'manman'
 #from django.template import Context
 from django.http import HttpResponse
 from django.utils import simplejson
-from Automata.NFA2DFA import *
+#from Automata.NFA2DFA import *
 from django.shortcuts import render_to_response
+import copy
 #终态结束的PDA
 LP_PDA = {
         'type':'PDA',
@@ -15,6 +16,7 @@ LP_PDA = {
         'start_stack':'Z0',
         'stack':['Z0'],
         'final':['q2'],
+        'pre_state':{},
         'state':{
             'q0':{
                 'name':'q0',
@@ -79,6 +81,7 @@ NP_PDA = {
     "start_stack":"X0",
     "stack":["X0"],
     "final":[],
+    'pre_state':{},
     "state":{
         "q1":{
             "name":"q1",
@@ -177,6 +180,8 @@ def fore_NP2LP(request):
 def LP2NP(LP_PDA):
     if LP_PDA['receive'] != 'final':
         return 0
+    if LP_PDA['state'] == {}:
+        parse_2_state(LP_PDA)
     #添加新的栈底元素
     addBottom = 'X'
     #保证未出现过
@@ -218,7 +223,6 @@ def LP2NP(LP_PDA):
     LP_PDA['stack'] = [addBottom]
     LP_PDA['state'][pre_start_state]['is_start'] = False
     LP_PDA['start_state'] = addStart
-
     LP_PDA['state'][addStart] = {
                 'name':addStart,
                 'is_start':True,
@@ -252,7 +256,7 @@ def LP2NP(LP_PDA):
 
     LP_PDA['final'] = []
     LP_PDA['receive'] = 'empty'
-
+    connnect_2_pre_state(LP_PDA)
     return  LP_PDA
 
 
@@ -261,6 +265,8 @@ def NP2LP(NP_PDA):
     if NP_PDA['receive'] != 'empty':
         return 0
     #添加新的栈底元素
+    if NP_PDA['state'] == {}:
+        parse_2_state(NP_PDA)
     addBottom = 'X'
     #保证未出现过
     temp = 0;
@@ -331,6 +337,126 @@ def NP2LP(NP_PDA):
                 'transition':{
                 }
             }
-
+    connnect_2_pre_state(NP_PDA)
     return  NP_PDA
+
+#将拆开的state连接成pre_state
+def connnect_2_pre_state(PDA):
+    PDA['pre_state'] = copy.deepcopy(PDA['state'])
+    for m_state in PDA['state']:
+        for m_input in PDA['state'][m_state]['transition']:
+            temp_trans = PDA['state'][m_state]['transition']
+            PDA['pre_state'][m_state]['transition'][m_input] = {}
+            #扫描，添加
+            for stack_top in temp_trans[m_input]:
+                for tran_list in temp_trans[m_input][stack_top]:
+                    to_state = tran_list[0]
+                    tran_str = stack_top + '/' +  ''.join(tran_list[1])
+                    if to_state not in PDA['pre_state'][m_state]['transition'][m_input]:
+                        PDA['pre_state'][m_state]['transition'][m_input][to_state] = []
+                    PDA['pre_state'][m_state]['transition'][m_input][to_state].append(tran_str)
+    return PDA
+
+#将连在一起的pre_state拆分成state
+def parse_2_state(PDA):
+    PDA['state'] = copy.deepcopy(PDA['pre_state'])
+    for m_state in PDA['pre_state']:
+        for m_input in PDA['pre_state'][m_state]['transition']:
+            temp_trans = PDA['pre_state'][m_state]['transition']
+            PDA['state'][m_state]['transition'][m_input] = {}
+            #扫描，添加
+            for to_state in temp_trans[m_input]:
+                for tran_str in temp_trans[m_input][to_state]:
+                    stack_top,fin_trans = per_parse_sta(to_state,tran_str,PDA['stack_input'])
+                    if stack_top == '' and fin_trans == []:
+                        return []
+                    if stack_top not in PDA['state'][m_state]['transition'][m_input]:
+                        PDA['state'][m_state]['transition'][m_input][stack_top] = []
+                    PDA['state'][m_state]['transition'][m_input][stack_top].append(fin_trans)
+    return PDA
+
+def per_parse_sta(to_state,tran_str,stack_input):
+    result = []
+    tran_str = tran_str.split('/')
+    if len(tran_str) != 2 or tran_str[0] not in stack_input:
+        return '',[]
+    stack_top = tran_str[0]
+    #当前扫描位置
+    index = 0
+    while(index < len(tran_str[1])):
+        #ε转移情况
+        if tran_str[1][index] == u'ε':
+            if tran_str[1] == u'ε':
+                return stack_top,[to_state,[u'ε']]
+            else:
+                index += 1
+                continue
+        iffound = False
+        for i in range(index+1,len(tran_str[1])+1):
+            temp = tran_str[1][index:(len(tran_str[1])+index+1-i)]
+            if temp in stack_input:
+                index = len(tran_str[1])+index-i+1
+                result.append(temp)
+                iffound = True
+                break
+        if iffound == False:
+            return '',[]
+    return stack_top,[to_state,result]
+
+
+
+#将拆开的final_Production连接成pre_Production
+def connnect_preP(CFG):
+    temp_prduct = copy.deepcopy(CFG['pre_Production'])
+    for fore in temp_prduct:
+        if fore not in CFG['final_Production']:
+            CFG['pre_Production'].pop(fore)
+    for fore in CFG['final_Production']:
+        #CFG['pre_Production'][fore] = ''
+        temp = []
+        for trans in CFG['final_Production'][fore]:
+            temp.append(''.join(trans))
+        CFG['pre_Production'][fore] = '|'.join(temp)
+            #CFG['pre_Production'][fore] += ''.join(trans)
+    return CFG
+
+#将连在一起的pre_Production拆分成final_Production
+def parse_finalP(CFG):
+    temp_prduct = copy.deepcopy(CFG['final_Production'])
+    for fore in temp_prduct:
+        if fore not in CFG['pre_Production']:
+            CFG['final_Production'].pop(fore)
+    for fore in CFG['pre_Production']:
+        product = CFG['pre_Production'][fore].split('|')
+        index = 0
+        CFG['final_Production'][fore] = []
+        for per_pro in product:
+            if per_pro == u'ε':
+                CFG['final_Production'][fore].append([u'ε'])
+                continue
+            #将每个连起来的串分割成有终结符或变元组成的数组
+            temp = parsePro(per_pro,CFG['Variable'],CFG['Terminal'])
+            if temp == []:
+                return [] #[]说明出错，返回
+            else:
+                CFG['final_Production'][fore].append(temp)
+    return CFG
+
+def parsePro(per_pro,Var,Ter):
+    list = []
+    #当前扫描位置
+    index = 0
+    #终结符
+    while(index < len(per_pro)):
+        iffound = False
+        for i in range(index+1,len(per_pro)+1):
+            temp = per_pro[index:(len(per_pro)+index+1-i)]
+            if temp in Var or temp in Ter:
+                index = len(per_pro)+index-i+1
+                list.append(temp)
+                iffound = True
+                break
+        if iffound == False:
+            return []
+    return list
 

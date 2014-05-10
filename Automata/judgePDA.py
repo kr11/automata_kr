@@ -162,7 +162,6 @@ def fore_judgePDA(request):
     #judgeString = simplejson.loads(request.raw_post_data)
     judgeString = '010110011010' #待判断的语句
     #judgeString = '0101111010' #待判断的语句
-
     CFG = PDA2CFG(PDA)
     return HttpResponse(CYKAlgorithm(CFG,judgeString))
 

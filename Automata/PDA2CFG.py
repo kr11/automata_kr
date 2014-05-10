@@ -4,6 +4,7 @@ __author__ = 'manman'
 from django.http import HttpResponse
 from django.utils import simplejson
 from Automata.convertNP_LP import *
+from Automata.simplifyCFG import *
 from django.shortcuts import render_to_response
 import copy
 #test样例，json格式
@@ -44,6 +45,49 @@ PDA = {
         'start_stack':'Z0',
         'stack':['Z0'],
         'final':['q2'],
+        'pre_state':{
+            'q0':{
+                'name':'q0',
+                'is_start':True,
+                'is_final':False,
+                'transition':{
+                    #上层的ε，0，1为输入符号input
+                    #下一层Z0，1，0为输入栈符号,
+                    u'ε':{
+                        'q1':['Z0/Z0','0/0','1/1']
+                    },
+                    '0':{
+                        'q0':['Z0/0Z0','0/00','1/01']
+                    },
+                    '1':{
+                        'q0':['Z0/1Z0','0/10','1/11']
+                    },
+                }
+            },
+            'q1':{
+                'name':'q1',
+                'is_start':False,
+                'is_final':False,
+                'transition':{
+                    u'ε':{
+                        'q2':['Z0/Z0'],
+                    },
+                    '0':{
+                        'q1':[u'0/ε']
+                    },
+                    '1':{
+                        'q1':[u'1/ε']
+                    },
+                }
+            },
+            'q2':{
+                'name':'q2',
+                'is_start':False,
+                'is_final':True,
+                'transition':{
+                }
+            },
+        },
         'state':{
             'q0':{
                 'name':'q0',
@@ -161,56 +205,111 @@ qFG = {
             'S':[['i','S','S'],['e']],
         }
     }
+PDA = {
+        'type':'PDA',
+        'receive':'final',
+         'input':['0','1',u'ε'],
+         'stack_input':['0','1','Z0'],
+        'start_state':'q0',
+        'start_stack':'Z0',
+        'stack':['Z0'],
+        'final':['q2'],
+        'pre_state':{
+            'q0':{
+                'name':'q0',
+                'is_start':True,
+                'is_final':False,
+                'transition':{
+                    #上层的ε，0，1为输入符号input
+                    #下一层Z0，1，0为输入栈符号
+                    'q0':{
+                        '0':['Z0/0Z0','0/00','1/01'],
+                        '1':['Z0/1Z0','0/10','1/11'],
+                    },
+                    'q1':{
+                        u'ε':['Z0/Z0','0/0','1/1'],
+                    },
+                }
+            },
+            'q1':{
+                'name':'q1',
+                'is_start':False,
+                'is_final':False,
+                'transition':{
+                    'q1':{
+                        '0':[u'0/ε'],
+                        '1':[u'1/ε'],
+                    },
+                    'q2':{
+                        u'ε':['Z0/Z0'],
+                    },
+                }
+            },
+            'q2':{
+                'name':'q2',
+                'is_start':False,
+                'is_final':True,
+                'transition':{
+                }
+            },
+        },
+        'state':{
+            'q0':{
+                'name':'q0',
+                'is_start':True,
+                'is_final':False,
+                'transition':{
+                    #上层的ε，0，1为输入符号input
+                    #下一层Z0，1，0为输入栈符号
+                    u'ε':{
 
-#将拆开的final_Production连接成pre_Production
-def connnect_preP(CFG):
-    for fore in CFG['final_Production']:
-        #CFG['pre_Production'][fore] = ''
-        temp = []
-        for trans in CFG['final_Production'][fore]:
-            temp.append(''.join(trans))
-        CFG['pre_Production'][fore] = '|'.join(temp)
-            #CFG['pre_Production'][fore] += ''.join(trans)
-    return CFG
+                        'Z0':[['q1',['Z0']],],
+                        '0':[['q1',['0']],],
+                        '1':[['q1',['1']],],
+                    },
+                    '0':{
+                        #状态q0输入符号ε，栈顶为Z0，则
+                        #1. 转到q1，栈顶换成：【0，Z0，……】
+                        #2.……
+                        'Z0':[['q0',['0','Z0']],],
+                        '0':[['q0',['0','0']],],
+                        '1':[['q0',['0','1']],],
+                    },
+                     '1':{
+                        'Z0':[['q0',['1','Z0']],],
+                        '0':[['q0',['1','0']],],
+                        '1':[['q0',['1','1']],],
+                    },
+                }
+            },
+            'q1':{
+                'name':'q1',
+                'is_start':False,
+                'is_final':False,
+                'transition':{
+                    u'ε':{
+                        'Z0':[['q2',['Z0']],],
+                    },
+                    '0':{
+                        '0':[['q1',[u'ε']],],
+                    },
+                     '1':{
+                        '1':[['q1',[u'ε']],],
+                    },
+                }
+            },
+            'q2':{
+                'name':'q2',
+                'is_start':False,
+                'is_final':True,
+                'transition':{
+                }
+            },
+        },
+    }
 
-#将连在一起的pre_Production拆分成final_Production
-def parse_finalP(CFG):
-    for fore in CFG['pre_Production']:
-        product = CFG['pre_Production'][fore].split('|')
-        index = 0
-        CFG['final_Production'][fore] = []
-        for per_pro in product:
-            if per_pro == u'ε':
-                CFG['final_Production'][fore].append([u'ε'])
-                continue
-            #将每个连起来的串分割成有终结符或变元组成的数组
-            temp = parsePro(per_pro,CFG['Variable'],CFG['Terminal'])
-            if temp == []:
-                return [] #[]说明出错，返回
-            else:
-                CFG['final_Production'][fore].append(temp)
-    return CFG
-
-def parsePro(per_pro,Var,Ter):
-    list = []
-    #当前扫描位置
-    index = 0
-    #终结符
-    while(index < len(per_pro)):
-        iffound = False
-        for i in range(index+1,len(per_pro)+1):
-            temp = per_pro[index:(len(per_pro)+index+1-i)]
-            if temp in Var or temp in Ter:
-                index = len(per_pro)+index-i+1
-                list.append(temp)
-                iffound = True
-                break
-        if iffound == False:
-            return []
-    return list
 
 add_new_state = {}#已经重命名过的新状态，对应他的新名字
-
 #初始化add_new_state，将所有[qXp]编号，放入
 def number_addNewState(PDA):
     global add_new_state
@@ -233,6 +332,8 @@ def PDA2CFG(PDA):
     global CFG
     if PDA['receive'] == 'final':
         PDA = LP2NP(PDA)
+    if PDA['state'] == {}:
+        parse_2_state(PDA)
     #初始化CFG
     CFG = {
         'type':'CFG',
@@ -286,6 +387,7 @@ def PDA2CFG(PDA):
                             per_production(PDA,temp,result[0],result[1],rk,[m_input],k)
 
     CFG = connnect_preP(CFG)
+    CFG = CFGsimplify(CFG)
     return CFG
 
 

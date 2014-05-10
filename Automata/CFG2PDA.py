@@ -4,6 +4,7 @@ __author__ = 'manman'
 from django.http import HttpResponse
 from django.utils import simplejson
 from Automata.PDA2CFG import *
+from Automata.convertNP_LP import *
 from django.shortcuts import render_to_response
 import copy
 #test样例，json格式
@@ -17,6 +18,7 @@ PDA = {
         'start_stack':'S',
         'stack':['S'],
         'final':['q0'],
+        'pre_state':{},
         'state':{
             'q0':{
                 'name':'q0',
@@ -65,6 +67,7 @@ def CFG2PDA(CFG):
             'start_stack':'S',
             'stack':['S'],
             'final':['q0'],
+            'pre_state':{},
             'state':{
                 'q0':{
                     'name':'q0',
@@ -91,6 +94,7 @@ def CFG2PDA(CFG):
     for ter in CFG['Terminal']:
         PDA['state']['q0']['transition'][ter] = {}
         PDA['state']['q0']['transition'][ter][ter] = [['q0',[u'ε']]]
+    PDA = connnect_2_pre_state(PDA)
     return PDA
 
 
