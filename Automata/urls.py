@@ -37,7 +37,7 @@ urlpatterns = patterns('',
     ('^CFGsimplify/$',fore_CFGsimplify),
     ('^CYK/$',fore_judgeCFG),
     #(r'^$',fore_judgePDA),
-    (r'^$',fore_CFGsimplify),
+    (r'^$',judgeTuring),
     #(r'^$',fore_LP2NP),
     #url(r'^admin/', include(admin.site.urls)),
 )
